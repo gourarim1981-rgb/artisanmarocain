@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Artisan Marocain ✦</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script id="paypal-sdk"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F8F9FC;--surface:#FFFFFF;--surface2:#F1F4F9;
+  --gold:#8B6914;--gold2:#C9A84C;--gold-bg:rgba(139,105,20,.08);
+  --text:#1A1D23;--text2:#4A5162;--text3:#8890A4;
+  --border:#E4E8F0;--green:#16a34a;--red:#dc2626;
+  --sh-sm:0 1px 4px rgba(0,0,0,.07);--sh-md:0 4px 16px rgba(0,0,0,.09);
+  --sh-lg:0 14px 40px rgba(0,0,0,.11);--sh-xl:0 24px 56px rgba(0,0,0,.14);
+  --nav-h:68px;--r-sm:6px;--r-md:12px;--r-lg:18px;--r-xl:26px;
+  --t:.22s ease;--fd:'Playfair Display',Georgia,serif;--fb:'Inter',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h)}
+body{font-family:var(--fb);background:var(--bg);color:var(--text);font-size:15px;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+img{display:block;max-width:100%}
+input,select,textarea{font-family:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-thumb{background:var(--gold2);border-radius:3px}
+.page{display:none}.page.active{display:block}
+#nav{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--nav-h);background:rgba(255,255,255,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:var(--sh-sm)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 28px;height:100%;display:flex;align-items:center;gap:6px}
+.nav-logo{display:flex;align-items:center;gap:11px;cursor:pointer;margin-right:auto;padding:6px 0}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-txt{font-family:var(--fd);font-size:18px;font-weight:700;color:var(--text);line-height:1.1}
+.nav-logo-txt em{font-style:italic;color:var(--gold);display:block;font-size:11px;font-weight:400;letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;list-style:none;gap:2px}
+.nav-links a{display:flex;align-items:center;gap:6px;padding:9px 15px;border-radius:var(--r-sm);font-size:13px;font-weight:500;color:var(--text2);cursor:pointer;transition:all var(--t);white-space:nowrap}
+.nav-links a:hover{color:var(--gold);background:var(--gold-bg)}
+.nav-links a.act{color:var(--gold);background:var(--gold-bg);font-weight:600}
+.nav-r{display:flex;align-items:center;gap:8px;margin-left:8px}
+.lang-w{position:relative}
+.lang-btn{display:flex;align-items:center;gap:5px;padding:7px 13px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:12px;font-weight:600;color:var(--text2);background:var(--surface);transition:all var(--t)}
+.lang-btn:hover{border-color:var(--gold2);color:var(--gold)}
+.lang-dd{position:absolute;top:calc(100% + 7px);right:0;background:var(--surface);border:1px solid var(--border);min-width:150px;border-radius:var(--r-md);box-shadow:var(--sh-lg);overflow:hidden;display:none}
+.lang-w.open .lang-dd{display:block;animation:slideDown .15s ease}
+.lang-opt{display:flex;align-items:center;gap:8px;width:100%;padding:11px 16px;font-size:13px;font-weight:500;color:var(--text2);text-align:left;transition:all var(--t);cursor:pointer}
+.lang-opt:hover,.lang-opt.act{background:var(--gold-bg);color:var(--gold)}
+.cart-btn{position:relative;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:var(--r-sm);border:1.5px solid var(--border);background:var(--surface);color:var(--text2);transition:all var(--t)}
+.cart-btn:hover{border-color:var(--gold2);color:var(--gold);background:var(--gold-bg)}
+.cart-b{position:absolute;top:-5px;right:-5px;background:var(--gold);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:none;align-items:center;justify-content:center;border:2px solid var(--bg)}
+.hbg{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;padding:9px;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--surface);transition:all var(--t)}
+.hbg span{display:block;height:2px;background:var(--text2);border-radius:2px;transition:all var(--t)}
+.hbg.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hbg.open span:nth-child(2){opacity:0}
+.hbg.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mob-menu{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 20px 20px;display:none;flex-direction:column;gap:2px;box-shadow:var(--sh-md)}
+.mob-menu.open{display:flex;animation:slideDown .2s ease}
+.mob-menu a{padding:12px 14px;font-size:14px;font-weight:500;color:var(--text2);border-radius:var(--r-sm);cursor:pointer;transition:all var(--t)}
+.mob-menu a:hover{color:var(--gold);background:var(--gold-bg)}
+.mob-langs{display:flex;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);flex-wrap:wrap}
+.mob-langs button{font-size:11px;padding:5px 10px;font-weight:600;border:1.5px solid var(--border);color:var(--text2);border-radius:20px;background:var(--surface);transition:all var(--t)}
+.mob-langs button.act,.mob-langs button:hover{color:var(--gold);border-color:var(--gold2);background:var(--gold-bg)}
+#home-page{display:none}
+#home-page.active{display:block}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO — Premium Full-Bleed Moroccan
+═══════════════════════════════════════════════════════════════ */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding-top:var(--nav-h);
+  overflow:hidden;
+  background:#0D0705;
+}
+.hero-img{
+  position:absolute;inset:0;z-index:0;
+  background-image:url('https://images.unsplash.com/photo-1539020140153-e479b8c22e70?w=1920&q=82&auto=format&fit=crop&crop=center');
+  background-size:cover;background-position:center 40%;
+  transform:scale(1.06);
+  animation:heroPan 20s ease-in-out infinite alternate;
+  will-change:transform;
+}
+@keyframes heroPan{
+  from{transform:scale(1.06) translateX(0) translateY(0)}
+  to{transform:scale(1.10) translateX(-1.5%) translateY(-1%)}
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(to bottom,rgba(5,3,1,.65) 0%,rgba(5,3,1,.22) 42%,rgba(5,3,1,.14) 60%,rgba(5,3,1,.75) 100%),
+    linear-gradient(108deg,rgba(5,3,1,.60) 0%,transparent 55%);
+}
+.hero-topbar{
+  position:absolute;top:var(--nav-h);left:0;right:0;z-index:3;height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(201,168,76,.28) 22%,rgba(232,201,122,.65) 50%,rgba(201,168,76,.28) 78%,transparent 100%);
+}
+.hero-glow{display:none}
+.hero-con{
+  position:relative;z-index:4;
+  text-align:center;padding:72px 24px 100px;max-width:860px;width:100%;
+  animation:heroUp 1s cubic-bezier(.22,.84,.36,1) .05s both;
+}
+@keyframes heroUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:10px;
+  background:rgba(201,168,76,.11);border:1px solid rgba(201,168,76,.36);
+  color:#E8C97A;font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  padding:8px 24px;border-radius:50px;margin-bottom:38px;
+  backdrop-filter:blur(14px);
+  animation:heroUp 1s cubic-bezier(.22,.84,.36,1) .12s both;
+}
+.hero-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--gold2);box-shadow:0 0 7px var(--gold2);animation:dotPulse 2.8s ease infinite}
+@keyframes dotPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.65)}}
+.hero-title{
+  font-family:var(--fd);
+  font-size:clamp(46px,9vw,110px);
+  font-weight:700;line-height:1.01;letter-spacing:-.02em;
+  color:#fff;margin-bottom:0;
+  text-shadow:0 3px 48px rgba(0,0,0,.55);
+  animation:heroUp 1s cubic-bezier(.22,.84,.36,1) .20s both;
+}
+.hero-t1{display:block;color:#fff}
+.hero-t2{
+  display:block;font-style:italic;
+  background:linear-gradient(130deg,#C9A84C 0%,#F0D98A 48%,#C9A84C 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 2px 20px rgba(201,168,76,.38));
+  animation:heroUp 1s cubic-bezier(.22,.84,.36,1) .20s both,goldShimmer 4s linear 1.2s infinite;
+}
+.hero-title span{color:var(--gold2);font-style:italic} /* legacy compat */
+@keyframes goldShimmer{0%{background-position:200% center}100%{background-position:-200% center}}
+.hero-orn{
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  margin:26px auto 28px;
+  animation:heroUp 1s cubic-bezier(.22,.84,.36,1) .28s both;
+}
+.hero-orn-line{flex:1;max-width:110px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,.52))}
+.hero-orn-line:last-child{background:linear-gradient(270deg,transparent,rgba(201,168,76,.52))}
+.hero-orn-sym{color:rgba(201,168,76,.75);font-size:14px;letter-spacing:7px;text-shadow:0 0 16px rgba(201,168,76,.5)}
+.hero-sub{
+  font-size:clamp(15px,2.3vw,19px);color:rgba(255,255,255,.76);line-height:1.82;
+  max-width:570px;margin:0 auto 50px;font-weight:300;letter-spacing:.016em;
+  animation:heroUp 1s cubic-bezier(.22,.84,.36,1) .34s both;
+}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:heroUp 1s cubic-bezier(.22,.84,.36,1) .42s both}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:17px 40px;font-size:13.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+  background:linear-gradient(135deg,#A8843A 0%,#E8C97A 50%,#C9A84C 100%);background-size:200% auto;
+  color:#1A0C03;border:none;border-radius:50px;cursor:pointer;
+  box-shadow:0 8px 32px rgba(201,168,76,.42),0 2px 8px rgba(0,0,0,.28);
+  transition:all .32s ease;position:relative;overflow:hidden;
+}
+.btn-primary::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.22) 50%,transparent 100%);
+  transform:translateX(-150%);transition:transform .55s ease;
+}
+.btn-primary:hover::after{transform:translateX(150%)}
+.btn-primary:hover{background-position:right center;transform:translateY(-3px);box-shadow:0 16px 44px rgba(201,168,76,.55),0 4px 14px rgba(0,0,0,.3)}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:16px 36px;font-size:13.5px;font-weight:600;letter-spacing:.04em;
+  color:#fff;border:1.5px solid rgba(255,255,255,.36);border-radius:50px;
+  background:rgba(255,255,255,.06);backdrop-filter:blur(14px);
+  transition:all .3s ease;text-decoration:none;cursor:pointer;
+}
+.btn-outline:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.68);transform:translateY(-3px);color:#fff}
+.hero-stats{
+  display:flex;justify-content:center;flex-wrap:wrap;gap:0;
+  margin-top:72px;padding-top:38px;border-top:1px solid rgba(201,168,76,.17);
+  animation:heroUp 1s cubic-bezier(.22,.84,.36,1) .55s both;
+}
+.hero-stats>div{display:flex;flex-direction:column;align-items:center;gap:5px;padding:0 36px;border-right:1px solid rgba(201,168,76,.14)}
+.hero-stats>div:last-child{border-right:none}
+.stat-num{
+  font-family:var(--fd);font-size:36px;font-weight:700;line-height:1;
+  background:linear-gradient(135deg,#C9A84C,#E8C97A);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;
+}
+.stat-lbl{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.42);display:block;margin-top:4px}
+.hero-scroll{
+  position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:4;
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  animation:scrollFloat 3.5s ease infinite;
+}
+.hero-scroll-txt{font-size:8.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+.hero-scroll-line{width:1px;height:42px;background:linear-gradient(to bottom,rgba(201,168,76,.5),transparent)}
+@keyframes scrollFloat{0%,100%{transform:translateX(-50%) translateY(0);opacity:.55}50%{transform:translateX(-50%) translateY(9px);opacity:.28}}
+@media(max-width:600px){
+  .hero-stats>div{padding:0 18px}.stat-num{font-size:26px}
+  .hero-btns{flex-direction:column;align-items:center}
+  .btn-primary,.btn-outline{width:100%;justify-content:center}
+  .hero-orn-line{max-width:56px}
+}
+/* ═══════════════════════════════════════════════════════════════ */
+.cats-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 0;box-shadow:var(--sh-sm)}
+.cats-bar .wrap{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.cat-pill{padding:7px 18px;font-size:12px;font-weight:500;color:var(--text2);border:1.5px solid var(--border);border-radius:40px;transition:all var(--t);background:var(--surface)}
+.cat-pill:hover{color:var(--gold);border-color:var(--gold2);background:var(--gold-bg)}
+.cat-pill.act{color:#fff;background:var(--gold);border-color:var(--gold);box-shadow:0 2px 10px rgba(139,105,20,.3)}
+.sec{padding:76px 0}.sec-alt{background:var(--surface)}
+.sec-header{text-align:center;margin-bottom:52px}
+.sec-eye{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.sec-h2{font-family:var(--fd);font-size:clamp(28px,4vw,44px);font-weight:700;color:var(--text);margin-bottom:14px}
+.sec-desc{font-size:15px;color:var(--text2);max-width:490px;margin:0 auto;line-height:1.75}
+.see-all{text-align:center;margin-top:44px}
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:24px}
+.pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;transition:all var(--t);box-shadow:var(--sh-sm)}
+.pc:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);border-color:rgba(139,105,20,.18)}
+.pc-img-w{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--surface2)}
+.pc-img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+.pc:hover .pc-img{transform:scale(1.06)}
+.pc-tag{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:4px 10px;border-radius:40px;backdrop-filter:blur(6px)}
+.t-tapis{background:rgba(146,64,14,.82);color:#fde68a}
+.t-caftan{background:rgba(88,28,135,.82);color:#e9d5ff}
+.t-lampes{background:rgba(180,83,9,.82);color:#fed7aa}
+.t-artisanat{background:rgba(6,95,70,.82);color:#a7f3d0}
+.t-soin{background:rgba(157,23,77,.82);color:#fbcfe8}
+.t-bijoux{background:rgba(30,58,138,.82);color:#bfdbfe}
+.pc-body{padding:20px}
+.pc-name{font-family:var(--fd);font-size:18px;font-weight:600;color:var(--text);margin-bottom:7px;line-height:1.3}
+.pc-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pc-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.pc-price{font-family:var(--fd);font-size:23px;color:var(--gold);font-weight:700}
+.pc-acts{display:flex;gap:7px;flex-wrap:wrap}
+.btn-add{padding:8px 16px;font-size:12px;font-weight:600;color:var(--gold);border:1.5px solid var(--gold2);border-radius:var(--r-sm);background:var(--gold-bg);transition:all var(--t)}
+.btn-add:hover:not(:disabled){background:var(--gold);color:#fff;border-color:var(--gold);transform:translateY(-1px)}
+.btn-add.ok{background:var(--green);color:#fff;border-color:var(--green)}
+.btn-add:disabled{opacity:.4;cursor:not-allowed}
+.btn-wa-sm{display:inline-flex;align-items:center;gap:5px;padding:8px 13px;font-size:12px;font-weight:600;background:#25D366;color:#fff;border-radius:var(--r-sm);transition:all var(--t)}
+.story{padding:84px 0;background:linear-gradient(135deg,#fefdf5,#f8f9fc,#eff3fe);position:relative}
+.story-con{text-align:center;max-width:600px;margin:0 auto}
+.story-star{color:var(--gold2);font-size:30px;margin-bottom:18px;display:inline-block;animation:spin 22s linear infinite}
+.story-con h2{font-family:var(--fd);font-size:clamp(28px,5vw,48px);font-weight:700;color:var(--text);margin-bottom:16px}
+.story-con p{font-size:16px;color:var(--text2);line-height:1.8}
+.features-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.feat-card{text-align:center;padding:34px 22px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);transition:all var(--t);box-shadow:var(--sh-sm)}
+.feat-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.feat-ico{font-size:38px;display:block;margin-bottom:14px}
+.feat-card h4{font-family:var(--fd);font-size:18px;font-weight:600;color:var(--text);margin-bottom:8px}
+.feat-card p{font-size:13px;color:var(--text2);line-height:1.65}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.32);z-index:1000;opacity:0;pointer-events:none;transition:opacity var(--t)}
+.ov.show{opacity:1;pointer-events:all}
+.cart-sb{position:fixed;top:0;right:0;bottom:0;width:min(400px,100vw);z-index:1001;background:var(--surface);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:var(--sh-xl)}
+.cart-sb.open{transform:translateX(0)}
+.cart-hdr{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)}
+.cart-hdr h2{font-family:var(--fd);font-size:21px;font-weight:700;color:var(--text)}
+.cart-cls{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--border);border-radius:var(--r-sm);color:var(--text2);font-size:16px;transition:all var(--t)}
+.cart-cls:hover{color:var(--red);border-color:rgba(220,38,38,.3)}
+.cart-items{flex:1;overflow-y:auto;padding:16px 24px}
+.cart-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:220px;gap:14px;color:var(--text3);text-align:center}
+.ci{display:flex;gap:13px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border)}
+.ci-img{width:64px;height:64px;object-fit:cover;border-radius:var(--r-md);flex-shrink:0;background:var(--surface2)}
+.ci-inf{flex:1}
+.ci-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.ci-price{font-size:13px;color:var(--gold);font-weight:700;margin-bottom:7px}
+.ci-qty{display:flex;align-items:center;gap:8px}
+.ci-qty button{width:26px;height:26px;border:1.5px solid var(--border);color:var(--text2);font-size:14px;display:flex;align-items:center;justify-content:center;border-radius:var(--r-sm);background:var(--surface);transition:all var(--t)}
+.ci-qty button:hover{border-color:var(--gold2);color:var(--gold)}
+.ci-qty span{font-size:13px;font-weight:700;min-width:20px;text-align:center}
+.ci-rm{color:var(--text3);font-size:13px;padding:4px;border-radius:4px;transition:all var(--t)}
+.ci-rm:hover{color:var(--red)}
+.cart-ftr{padding:20px 24px;border-top:1px solid var(--border);background:var(--surface2)}
+.cart-tot{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cart-tot span{font-size:14px;font-weight:500;color:var(--text2)}
+.cart-tot strong{font-family:var(--fd);font-size:26px;color:var(--gold);font-weight:700}
+.btn-co{display:block;width:100%;padding:14px;background:var(--gold);color:#fff;font-size:14px;font-weight:700;border-radius:var(--r-md);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(139,105,20,.38);transition:all var(--t)}
+.btn-co:hover{background:#7a5a10;transform:translateY(-1px)}
+.pg-header{padding:calc(var(--nav-h) + 52px) 0 42px;background:linear-gradient(145deg,#fefcf5,#f8f9fc);text-align:center;border-bottom:1px solid var(--border)}
+.pg-header h1{font-family:var(--fd);font-size:clamp(32px,5vw,50px);font-weight:700;color:var(--text);margin-bottom:10px}
+.filters{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:28px;padding:20px 0;border-bottom:1px solid var(--border)}
+.srch{display:flex;align-items:center;gap:10px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-md);padding:10px 16px;flex:1;min-width:200px;transition:all var(--t);box-shadow:var(--sh-sm)}
+.srch:focus-within{border-color:var(--gold2);box-shadow:0 0 0 3px rgba(201,168,76,.12)}
+.srch input{background:none;border:none;outline:none;color:var(--text);font-size:14px;width:100%}
+.sort-sel{background:var(--surface);border:1.5px solid var(--border);color:var(--text);padding:10px 14px;font-size:13px;border-radius:var(--r-md);outline:none;cursor:pointer;box-shadow:var(--sh-sm)}
+.res-c{font-size:13px;color:var(--text3);margin-bottom:20px;font-weight:500}
+#checkout-page.active{display:block;padding-top:var(--nav-h);background:var(--bg)}
+.co-wrap{max-width:1060px;margin:0 auto;padding:40px 24px 80px}
+.live-banner{display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.2);border-radius:var(--r-md);padding:10px 20px;margin-bottom:28px;font-size:12px;font-weight:700;color:#1d4ed8;letter-spacing:.06em;text-transform:uppercase}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#16a34a;animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.8)}}
+.co-grid{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;margin-bottom:20px;box-shadow:var(--sh-sm)}
+.card:last-child{margin-bottom:0}
+.sec-title{display:flex;align-items:center;gap:12px;font-family:var(--fd);font-size:20px;font-weight:700;margin-bottom:22px;color:var(--text)}
+.sec-num{width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.fg:last-child{margin-bottom:0}
+.fg label{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3)}
+.fg input,.fg select{background:var(--bg);border:1.5px solid var(--border);color:var(--text);padding:11px 14px;font-size:14px;border-radius:var(--r-md);outline:none;width:100%;transition:all var(--t)}
+.fg input:focus,.fg select:focus{border-color:var(--gold2);background:var(--surface);box-shadow:0 0 0 3px rgba(201,168,76,.12)}
+.fg input.err{border-color:var(--red)}
+.ferr{font-size:12px;color:var(--red);font-weight:500;min-height:16px}
+.alert{border-radius:var(--r-md);padding:12px 16px;font-size:13px;font-weight:500;margin-top:12px;line-height:1.6;display:none}
+.alert.err{background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.2);color:var(--red)}
+.alert.ok{background:rgba(22,163,74,.06);border:1px solid rgba(22,163,74,.2);color:var(--green)}
+.alert.info{background:rgba(37,99,235,.06);border:1px solid rgba(37,99,235,.2);color:#1d4ed8}
+#stripe-pay-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;background:var(--gold);color:#fff;font-size:15px;font-weight:700;border-radius:var(--r-md);border:none;cursor:pointer;box-shadow:0 4px 18px rgba(139,105,20,.38);transition:all var(--t);margin-bottom:12px}
+#stripe-pay-btn:hover:not(:disabled){background:#7a5a10;transform:translateY(-1px);box-shadow:0 6px 22px rgba(139,105,20,.44)}
+#stripe-pay-btn:disabled{opacity:.6;cursor:not-allowed}
+.stripe-secure{display:flex;align-items:center;gap:7px;justify-content:center;font-size:12px;color:var(--text3);margin-bottom:16px}
+.pay-divider{display:flex;align-items:center;gap:12px;margin:16px 0;color:var(--text3);font-size:12px;font-weight:500}
+.pay-divider::before,.pay-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+#paypal-btn-container{min-height:55px}
+.pp-note{background:var(--surface2);border:1px solid rgba(139,105,20,.18);border-radius:var(--r-md);padding:12px 14px;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:12px}
+.pp-placeholder{background:var(--surface2);border:2px dashed var(--border);border-radius:var(--r-md);padding:24px;text-align:center;color:var(--text3);font-size:13px}
+.pp-placeholder .big{font-size:32px;margin-bottom:8px}
+.wa-row{display:flex;align-items:center;gap:10px;margin-top:16px;padding-top:16px;border-top:1px solid var(--border)}
+.wa-row span{font-size:13px;color:var(--text3);font-weight:500}
+.btn-wa-co{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:#25D366;color:#fff;font-size:12px;font-weight:700;border-radius:var(--r-md);border:none;cursor:pointer;transition:all var(--t)}
+.os-item{display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.os-img{width:56px;height:56px;object-fit:cover;border-radius:var(--r-md);flex-shrink:0;background:var(--surface2)}
+.os-info{flex:1}
+.os-name{font-size:13px;font-weight:500;color:var(--text);margin-bottom:3px}
+.os-qty-ctrl{display:flex;align-items:center;gap:6px;margin-top:4px}
+.os-qty-btn{width:22px;height:22px;border:1.5px solid var(--border);border-radius:var(--r-sm);color:var(--text2);font-size:13px;display:flex;align-items:center;justify-content:center;background:var(--surface);cursor:pointer;transition:all var(--t)}
+.os-qty-btn:hover{border-color:var(--gold2);color:var(--gold)}
+.os-qty-val{font-size:13px;font-weight:700;min-width:16px;text-align:center}
+.os-price{font-family:var(--fd);font-size:19px;color:var(--gold);font-weight:700;white-space:nowrap}
+.os-totals{margin-top:16px;display:flex;flex-direction:column;gap:9px}
+.os-row{display:flex;justify-content:space-between;font-size:14px;color:var(--text2)}
+.os-row.grand{color:var(--text);font-size:15px;font-weight:600;padding-top:12px;border-top:1.5px solid var(--border);margin-top:4px}
+.os-grand-price{font-family:var(--fd);font-size:29px;color:var(--gold);font-weight:700}
+.co-empty{text-align:center;padding:28px;color:var(--text3);font-size:13px}
+.trust{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:9px;font-size:12px;font-weight:500;color:var(--text3)}
+.trust span{display:flex;align-items:center;gap:7px}
+#co-success{display:none;text-align:center;padding:80px 24px;animation:fadeUp .5s ease}
+.sc-svg circle{stroke-dasharray:260;stroke-dashoffset:260;animation:dash .8s ease forwards}
+.sc-svg polyline{stroke-dasharray:66;stroke-dashoffset:66;animation:dash .55s ease .65s forwards}
+@keyframes dash{to{stroke-dashoffset:0}}
+#co-success h2{font-family:var(--fd);font-size:40px;font-weight:700;margin:24px 0 10px;color:var(--text)}
+#co-success .method-label{font-size:15px;color:var(--gold);font-weight:600;margin-bottom:8px}
+#co-success .sref{font-size:13px;color:var(--text2);margin-bottom:6px}
+#co-success .sref code{font-family:monospace;color:var(--gold);background:var(--surface2);padding:2px 8px;border-radius:var(--r-sm);font-size:12px}
+.contact-wrap{padding-top:var(--nav-h)}
+.ct-hero{background:linear-gradient(145deg,#fefcf5,#f8f9fc);padding:60px 0;text-align:center;border-bottom:1px solid var(--border)}
+.ct-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;padding:60px 0 80px}
+.ct-cards{display:flex;flex-direction:column;gap:16px}
+.ct-card{display:flex;gap:16px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;transition:all var(--t);box-shadow:var(--sh-sm)}
+.ct-card:hover{transform:translateY(-2px);box-shadow:var(--sh-md)}
+.ct-ico{width:44px;height:44px;border-radius:var(--r-md);background:var(--gold-bg);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ct-card strong{display:block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);margin-bottom:4px}
+.ct-card p,.ct-card a{font-size:14px;color:var(--text2);transition:color var(--t);line-height:1.5}
+.ct-card a:hover{color:var(--gold)}
+.maps-link{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r-md);font-size:13px;font-weight:600;color:var(--text);box-shadow:var(--sh-sm);transition:all var(--t)}
+.maps-link:hover{border-color:var(--gold2);color:var(--gold);transform:translateY(-1px)}
+.ct-form-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-xl);padding:32px;box-shadow:var(--sh-md)}
+.ct-form-wrap h3{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--text);margin-bottom:22px}
+.fg textarea{background:var(--bg);border:1.5px solid var(--border);color:var(--text);padding:11px 14px;font-size:14px;border-radius:var(--r-md);outline:none;width:100%;transition:all var(--t);resize:vertical;min-height:120px}
+.fg textarea:focus{border-color:var(--gold2);background:var(--surface)}
+.fe{font-size:12px;color:var(--red);font-weight:500}
+.form-ok{background:rgba(22,163,74,.07);border:1px solid rgba(22,163,74,.2);border-radius:var(--r-md);padding:12px 16px;font-size:14px;font-weight:500;color:var(--green)}
+.btn-submit{display:block;width:100%;padding:14px;background:var(--gold);color:#fff;font-size:14px;font-weight:700;border-radius:var(--r-md);border:none;cursor:pointer;box-shadow:0 4px 16px rgba(139,105,20,.35);transition:all var(--t)}
+.btn-submit:hover{background:#7a5a10;transform:translateY(-1px)}
+footer{background:var(--surface);border-top:1px solid var(--border);padding:52px 0 0}
+.ft-in{display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:40px;padding-bottom:44px}
+.ft-brand{display:flex;align-items:flex-start;gap:14px}
+.ft-brand strong{display:block;font-family:var(--fd);font-size:19px;font-weight:700;margin-bottom:6px;color:var(--text)}
+.ft-brand p{font-size:13px;color:var(--text2);line-height:1.6}
+.ft-col h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:14px}
+.ft-links{display:flex;flex-direction:column;gap:10px}
+.ft-links a{font-size:13px;color:var(--text2);font-weight:500;transition:color var(--t);cursor:pointer}
+.ft-links a:hover{color:var(--gold)}
+.ft-ct{display:flex;flex-direction:column;gap:10px}
+.ft-ct p,.ft-ct a{font-size:13px;color:var(--text2);transition:color var(--t)}
+.ft-ct a:hover{color:var(--gold)}
+.ft-wa{display:inline-flex;align-items:center;gap:7px;margin-top:8px;padding:9px 18px;background:#25D366;color:#fff;font-size:13px;font-weight:700;border-radius:var(--r-md);transition:all var(--t)}
+.ft-wa:hover{opacity:.87;color:#fff;transform:translateY(-1px)}
+.ft-bot{border-top:1px solid var(--border);padding:18px 24px;text-align:center;font-size:12px;color:var(--text3);font-weight:500;background:var(--surface2)}
+#gflash{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;padding:12px 22px;border-radius:var(--r-md);font-size:13px;font-weight:600;z-index:9999;display:none;animation:fadeUp .3s ease;box-shadow:var(--sh-lg)}
+[dir="rtl"] .nav-logo{margin-left:auto;margin-right:0}
+[dir="rtl"] .cart-sb{right:auto;left:0;transform:translateX(-100%)}
+[dir="rtl"] .cart-sb.open{transform:translateX(0)}
+[dir="rtl"] #gflash{right:auto;left:24px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-9px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@media(max-width:900px){.co-grid,.ct-grid{grid-template-columns:1fr}.ft-in{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){.nav-links{display:none}.hbg{display:flex}.pg{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}.row2{grid-template-columns:1fr}.ft-in{grid-template-columns:1fr;gap:28px}.sec{padding:56px 0}.filters{flex-direction:column;align-items:stretch}}
+@media(max-width:480px){.pg{grid-template-columns:1fr}.co-wrap{padding:24px 16px 60px}.wrap{padding:0 16px}.hero-btns{flex-direction:column;align-items:center}}
+</style>
+</head>
+<body>
+<div id="gflash"></div>
+<nav id="nav">
+  <div class="nav-inner">
+    <div class="nav-logo" onclick="showPage('home')">
+      <div class="logo-icon"><svg width="20" height="20" viewBox="0 0 36 36"><polygon points="18,2 22,14 34,14 24,22 28,34 18,26 8,34 12,22 2,14 14,14" fill="#fff"/></svg></div>
+      <div class="nav-logo-txt">Artisan<em>Marocain</em></div>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <li><a id="nl-home" class="act" onclick="showPage('home')" data-i18n="nav.home">🏠 Accueil</a></li>
+      <li><a id="nl-products" onclick="showPage('products')" data-i18n="nav.products">🛍 Produits</a></li>
+      <li><a id="nl-contact" onclick="showPage('contact')" data-i18n="nav.contact">✉️ Contact</a></li>
+    </ul>
+    <div class="nav-r">
+      <div class="lang-w" id="lang-w">
+        <button class="lang-btn" id="lang-btn" onclick="toggleLang()">🇫🇷 FR ▾</button>
+        <div class="lang-dd">
+          <button class="lang-opt" onclick="setLang('ar')">🇲🇦 العربية</button>
+          <button class="lang-opt" onclick="setLang('en')">🇬🇧 English</button>
+          <button class="lang-opt" onclick="setLang('fr')">🇫🇷 Français</button>
+          <button class="lang-opt" onclick="setLang('de')">🇩🇪 Deutsch</button>
+          <button class="lang-opt" onclick="setLang('es')">🇪🇸 Español</button>
+          <button class="lang-opt" onclick="setLang('it')">🇮🇹 Italiano</button>
+        </div>
+      </div>
+      <button class="cart-btn" onclick="openCart()">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-b" id="cart-badge">0</span>
+      </button>
+      <button class="hbg" id="hbg" onclick="toggleMob()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mob-menu" id="mob-menu">
+    <a onclick="showPage('home');closeMob()" data-i18n="nav.home">🏠 Accueil</a>
+    <a onclick="showPage('products');closeMob()" data-i18n="nav.products">🛍 Produits</a>
+    <a onclick="showPage('contact');closeMob()" data-i18n="nav.contact">✉️ Contact</a>
+    <div class="mob-langs">
+      <button onclick="setLang('ar');closeMob()">🇲🇦 AR</button>
+      <button onclick="setLang('en');closeMob()">🇬🇧 EN</button>
+      <button onclick="setLang('fr');closeMob()">🇫🇷 FR</button>
+      <button onclick="setLang('de');closeMob()">🇩🇪 DE</button>
+      <button onclick="setLang('es');closeMob()">🇪🇸 ES</button>
+      <button onclick="setLang('it');closeMob()">🇮🇹 IT</button>
+    </div>
+  </div>
+</nav>
+<div class="ov" id="ov" onclick="closeCart()"></div>
+<aside class="cart-sb" id="cart-sb">
+  <div class="cart-hdr">
+    <h2 data-i18n="cart.title">Votre panier</h2>
+    <button class="cart-cls" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cart-items"></div>
+  <div class="cart-ftr" id="cart-ftr" style="display:none">
+    <div class="cart-tot"><span data-i18n="cart.total">Total</span><strong id="cart-total-val">€0.00</strong></div>
+    <button class="btn-co" onclick="goToCheckout()" data-i18n="cart.checkout">Commander</button>
+  </div>
+</aside>
+<div id="home-page" class="page active">
+  <section class="hero">
+    <div class="hero-img"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-topbar"></div>
+    <div class="hero-con">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        <span data-i18n="hero.badge">Artisanat Authentique du Maroc</span>
+        <span class="hero-badge-dot"></span>
+      </div>
+      <h1 class="hero-title">
+        <span class="hero-t1">Artisan</span>
+        <span class="hero-t2" data-i18n="hero.title">Marocain</span>
+      </h1>
+      <div class="hero-orn">
+        <div class="hero-orn-line"></div>
+        <span class="hero-orn-sym">✦ ✦ ✦</span>
+        <div class="hero-orn-line"></div>
+      </div>
+      <p class="hero-sub" data-i18n="hero.subtitle">L'authenticité du Maroc entre vos mains — chaque pièce, une histoire tissée à la main et livrée partout en Europe.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="showPage('products')">🛍 <span data-i18n="hero.cta">Découvrir la collection</span></button>
+        <a class="btn-outline" href="https://wa.me/4915566140625" target="_blank">💬 WhatsApp</a>
+      </div>
+      <div class="hero-stats">
+        <div><span class="stat-num">100%</span><span class="stat-lbl" data-i18n="stats.handmade">Fait Main</span></div>
+        <div><span class="stat-num">EU</span><span class="stat-lbl" data-i18n="stats.delivery">Livraison EU</span></div>
+        <div><span class="stat-num">6</span><span class="stat-lbl" data-i18n="stats.langs">Langues</span></div>
+        <div><span class="stat-num">★5</span><span class="stat-lbl">Qualité</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span class="hero-scroll-txt">Scroll</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+  <section class="cats-bar">
+    <div class="wrap" id="home-cats">
+      <button class="cat-pill act" onclick="filterHome('all')" data-cat="all" data-i18n="categories.all">Tous</button>
+      <button class="cat-pill" onclick="filterHome('artisanat')" data-cat="artisanat" data-i18n="categories.artisanat">Artisanat</button>
+      <button class="cat-pill" onclick="filterHome('lampes')" data-cat="lampes" data-i18n="categories.lampes">Lampes</button>
+      <button class="cat-pill" onclick="filterHome('tapis')" data-cat="tapis" data-i18n="categories.tapis">Tapis</button>
+      <button class="cat-pill" onclick="filterHome('bijoux')" data-cat="bijoux" data-i18n="categories.bijoux">Bijoux</button>
+      <button class="cat-pill" onclick="filterHome('soin')" data-cat="soin" data-i18n="categories.soin">Soins</button>
+    </div>
+  </section>
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-header">
+        <span class="sec-eye" data-i18n="section.selection">✦ Notre Sélection</span>
+        <h2 class="sec-h2" id="home-sec-title">Collection Complète</h2>
+        <p class="sec-desc" data-i18n="section.desc">Pièces uniques fabriquées par des artisans de Fès et Marrakech.</p>
+      </div>
+      <div class="pg" id="home-grid"></div>
+      <div class="see-all"><button class="btn-primary" onclick="showPage('products')" data-i18n="hero.cta">Voir toute la collection</button></div>
+    </div>
+  </section>
+  <section class="story">
+    <div class="wrap"><div class="story-con">
+      <div class="story-star">✦</div>
+      <h2 data-i18n="story.title">Savoir-faire Marocain</h2>
+      <p data-i18n="story.text">Chaque pièce raconte une histoire — tissée, ciselée, brodée par des artisans perpétuant des siècles de tradition berbère et andalouse.</p>
+    </div></div>
+  </section>
+  <section class="sec sec-alt">
+    <div class="wrap">
+      <div class="sec-header">
+        <span class="sec-eye" data-i18n="why.eye">Pourquoi nous choisir</span>
+        <h2 class="sec-h2" data-i18n="why.title">Qualité &amp; Confiance</h2>
+      </div>
+      <div class="features-g">
+        <div class="feat-card"><span class="feat-ico">🏺</span><h4 data-i18n="why.1.title">Fait Main</h4><p data-i18n="why.1.desc">100% artisanal, authenticité garantie.</p></div>
+        <div class="feat-card"><span class="feat-ico">🚚</span><h4 data-i18n="why.2.title">Livraison EU</h4><p data-i18n="why.2.desc">Expédition rapide dans toute l'Europe.</p></div>
+        <div class="feat-card"><span class="feat-ico">💳</span><h4 data-i18n="why.3.title">Stripe + PayPal</h4><p data-i18n="why.3.desc">Paiements sécurisés Visa, Mastercard, PayPal.</p></div>
+        <div class="feat-card"><span class="feat-ico">💬</span><h4 data-i18n="why.4.title">WhatsApp Direct</h4><p data-i18n="why.4.desc">Support direct pour chaque pièce.</p></div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="wrap ft-in">
+      <div class="ft-brand">
+        <div class="logo-icon" style="width:40px;height:40px;flex-shrink:0"><svg width="22" height="22" viewBox="0 0 36 36"><polygon points="18,2 22,14 34,14 24,22 28,34 18,26 8,34 12,22 2,14 14,14" fill="#fff"/></svg></div>
+        <div><strong>Artisan Marocain</strong><p data-i18n="footer.tagline">Artisanat authentique du Maroc</p></div>
+      </div>
+      <div class="ft-col">
+        <h4 data-i18n="footer.nav">Navigation</h4>
+        <div class="ft-links">
+          <a onclick="showPage('home')" data-i18n="nav.home">Accueil</a>
+          <a onclick="showPage('products')" data-i18n="nav.products">Produits</a>
+          <a onclick="showPage('contact')" data-i18n="nav.contact">Contact</a>
+        </div>
+      </div>
+      <div class="ft-col">
+        <h4 data-i18n="footer.contact">Contact</h4>
+        <div class="ft-ct">
+          <p>📍 Clemens-August-Str 23<br>53115 Bonn, Germany</p>
+          <p>📞 <a href="tel:+4915566140625">+49 155 66140625</a></p>
+          <a class="ft-wa" href="https://wa.me/4915566140625" target="_blank">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+    <div class="ft-bot">© <span class="yr"></span> Artisan Marocain — <span data-i18n="footer.rights">Tous droits réservés</span></div>
+  </footer>
+</div>
+<div id="products-page" class="page">
+  <div class="pg-header wrap">
+    <span class="sec-eye" style="margin-bottom:12px">✦</span>
+    <h1 data-i18n="nav.products">Tous nos Produits</h1>
+    <p style="margin-top:8px;color:var(--text2)" data-i18n="footer.tagline">Artisanat authentique du Maroc</p>
+  </div>
+  <div class="wrap" style="padding-top:32px;padding-bottom:80px">
+    <div class="filters">
+      <div class="srch">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8B6914" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" id="prod-search" oninput="renderProducts()" maxlength="100"/>
+      </div>
+      <div id="prod-cats" style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="cat-pill act" onclick="setProdCat('all',event)" data-i18n="categories.all">Tous</button>
+        <button class="cat-pill" onclick="setProdCat('artisanat',event)" data-i18n="categories.artisanat">Artisanat</button>
+        <button class="cat-pill" onclick="setProdCat('lampes',event)" data-i18n="categories.lampes">Lampes</button>
+        <button class="cat-pill" onclick="setProdCat('tapis',event)" data-i18n="categories.tapis">Tapis</button>
+        <button class="cat-pill" onclick="setProdCat('bijoux',event)" data-i18n="categories.bijoux">Bijoux</button>
+        <button class="cat-pill" onclick="setProdCat('soin',event)" data-i18n="categories.soin">Soins</button>
+      </div>
+      <select class="sort-sel" id="prod-sort" onchange="renderProducts()">
+        <option value="" data-i18n="sort.default">Trier par</option>
+        <option value="asc" data-i18n="sort.asc">Prix ↑</option>
+        <option value="desc" data-i18n="sort.desc">Prix ↓</option>
+      </select>
+    </div>
+    <p class="res-c" id="prod-count"></p>
+    <div class="pg" id="prod-grid"></div>
+  </div>
+</div>
+<div id="checkout-page" class="page">
+  <div class="co-wrap">
+    <div id="co-success">
+      <svg class="sc-svg" width="88" height="88" viewBox="0 0 88 88">
+        <circle cx="44" cy="44" r="40" fill="none" stroke="#8B6914" stroke-width="3"/>
+        <polyline points="25,44 37,58 63,30" fill="none" stroke="#8B6914" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 id="suc-title">Commande confirmée ✦</h2>
+      <p class="method-label" id="suc-method"></p>
+      <p class="sref">Référence : <code id="suc-ref"></code></p>
+      <p class="sref">Email : <code id="suc-email"></code></p>
+      <button class="btn-outline" style="display:inline-flex;margin-top:28px" onclick="showPage('home')" data-i18n="checkout.back">← Retour</button>
+    </div>
+    <div id="co-form-wrap">
+      <div style="text-align:center;padding:40px 0 28px">
+        <span class="sec-eye">✦ <span data-i18n="checkout.secure">Paiement Sécurisé</span></span>
+        <h1 style="font-family:var(--fd);font-size:clamp(28px,4vw,42px);font-weight:700;color:var(--text);margin-top:10px" data-i18n="checkout.title">Finaliser la commande</h1>
+      </div>
+      <div class="live-banner"><div class="live-dot"></div> Stripe · PayPal · Visa · Mastercard · Apple Pay · Google Pay</div>
+      <div class="co-grid">
+        <div>
+          <div class="card">
+            <div class="sec-title"><span class="sec-num">1</span> <span data-i18n="checkout.shipping">Informations de livraison</span></div>
+            <div class="row2">
+              <div class="fg"><label data-i18n="checkout.firstName">Prénom</label><input id="f-fname" maxlength="100"/><div class="ferr" id="e-fname"></div></div>
+              <div class="fg"><label data-i18n="checkout.lastName">Nom</label><input id="f-lname" maxlength="100"/><div class="ferr" id="e-lname"></div></div>
+            </div>
+            <div class="fg"><label data-i18n="checkout.email">Email</label><input id="f-email" type="email" maxlength="200"/><div class="ferr" id="e-email"></div></div>
+            <div class="row2">
+              <div class="fg"><label data-i18n="checkout.phone">Téléphone</label><input id="f-phone" type="tel" maxlength="30"/><div class="ferr" id="e-phone"></div></div>
+              <div class="fg"><label data-i18n="checkout.city">Ville</label><input id="f-city" maxlength="100"/><div class="ferr" id="e-city"></div></div>
+            </div>
+            <div class="fg"><label data-i18n="checkout.address">Adresse</label><input id="f-addr" maxlength="200"/><div class="ferr" id="e-addr"></div></div>
+            <div class="row2">
+              <div class="fg"><label data-i18n="checkout.country">Pays</label>
+                <select id="f-country">
+                  <option value="Germany">🇩🇪 Germany</option>
+                  <option value="France">🇫🇷 France</option>
+                  <option value="Spain">🇪🇸 Spain</option>
+                  <option value="Italy">🇮🇹 Italy</option>
+                  <option value="Netherlands">🇳🇱 Netherlands</option>
+                  <option value="Belgium">🇧🇪 Belgium</option>
+                  <option value="Austria">🇦🇹 Austria</option>
+                  <option value="Switzerland">🇨🇭 Switzerland</option>
+                  <option value="Morocco">🇲🇦 Morocco</option>
+                  <option value="UK">🇬🇧 UK</option>
+                </select>
+              </div>
+              <div class="fg"><label data-i18n="checkout.zip">Code postal</label><input id="f-zip" maxlength="10"/></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="sec-title"><span class="sec-num">2</span> <span data-i18n="checkout.payment">Paiement</span></div>
+            <div class="alert info" id="a-loading" style="display:none">⏳</div>
+            <div class="alert err" id="a-error"></div>
+            <div class="alert ok" id="a-success"></div>
+            <button id="stripe-pay-btn" onclick="startStripeCheckout()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              <span data-i18n="checkout.pay_stripe">Payer par carte</span> — €<span id="stripe-total">0.00</span>
+            </button>
+            <div class="stripe-secure">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+              <span data-i18n="checkout.stripe_note">Stripe — Visa, Mastercard, Apple Pay, Google Pay</span>
+            </div>
+            <div class="pay-divider" data-i18n="checkout.or_paypal">ou payer avec PayPal</div>
+            <div class="pp-note">🔒 <strong>PayPal</strong> — <span data-i18n="checkout.pp_note">Connexion sécurisée à votre compte PayPal.</span></div>
+            <div id="paypal-btn-container"></div>
+            <div class="pp-placeholder" id="pp-placeholder" style="display:none">
+              <div class="big">🅿️</div>
+              <p data-i18n="checkout.pp_config">Configuration PayPal requise</p>
+            </div>
+            <div class="wa-row">
+              <span data-i18n="checkout.or_whatsapp">Ou commander via :</span>
+              <button class="btn-wa-co" onclick="sendWhatsApp()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                WhatsApp
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card" style="position:sticky;top:88px">
+            <div class="sec-title"><span class="sec-num">✦</span> <span data-i18n="checkout.summary">Récapitulatif</span></div>
+            <div id="os-items"></div>
+            <div class="os-totals">
+              <div class="os-row"><span data-i18n="checkout.subtotal">Sous-total</span><span id="os-sub">€0.00</span></div>
+              <div class="os-row"><span data-i18n="checkout.shipping_free">Livraison</span><span style="color:var(--green);font-weight:600" data-i18n="checkout.free">Gratuite ✓</span></div>
+              <div class="os-row"><span data-i18n="checkout.tax">TVA (19%)</span><span id="os-tax">€0.00</span></div>
+              <div class="os-row grand"><span data-i18n="checkout.total">Total</span><span class="os-grand-price" id="os-total">€0.00</span></div>
+            </div>
+            <div class="trust">
+              <span>🔒 <span data-i18n="trust.secure">Paiement sécurisé</span></span>
+              <span>📦 <span data-i18n="trust.free">Livraison gratuite EU</span></span>
+              <span>↩️ <span data-i18n="trust.return">Retours 14 jours</span></span>
+              <span>💬 <span data-i18n="trust.support">Support WhatsApp</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="contact-page" class="page">
+  <div class="contact-wrap">
+    <div class="ct-hero"><div class="wrap">
+      <span class="sec-eye">✉️</span>
+      <h1 style="font-family:var(--fd);font-size:clamp(30px,5vw,50px);font-weight:700;color:var(--text);margin:12px 0 10px" data-i18n="contact.title">Contact</h1>
+      <p style="color:var(--text2);font-size:15px" data-i18n="contact.subtitle">Disponibles par téléphone, email et WhatsApp.</p>
+    </div></div>
+    <div class="wrap ct-grid">
+      <div class="ct-cards">
+        <div class="ct-card"><div class="ct-ico">📍</div><div><strong data-i18n="contact.address">Adresse</strong><p>Clemens-August-Str 23<br>53115 Bonn, Germany</p></div></div>
+        <div class="ct-card"><div class="ct-ico">📞</div><div><strong data-i18n="contact.phone">Téléphone</strong><p><a href="tel:+4915566140625">+49 155 66140625</a></p></div></div>
+        <div class="ct-card"><div class="ct-ico">💬</div><div><strong>WhatsApp</strong><p><a href="https://wa.me/4915566140625" target="_blank">+49 155 66140625</a></p></div></div>
+        <div class="ct-card"><div class="ct-ico">✉️</div><div><strong data-i18n="contact.email_label">Email</strong><p>contact@artisanmarocain.de</p></div></div>
+        <a class="maps-link" href="https://maps.google.com/?q=Clemens-August-Str+23,+53115+Bonn,+Germany" target="_blank">📍 <span data-i18n="contact.maps">Voir sur Google Maps</span> →</a>
+      </div>
+      <div class="ct-form-wrap">
+        <h3 data-i18n="contact.form_title">Envoyez-nous un message</h3>
+        <div id="ct-ok" class="form-ok" style="display:none" data-i18n="contact.sent">✓ Message envoyé !</div>
+        <form onsubmit="submitContact(event)" novalidate>
+          <div class="fg"><label data-i18n="contact.name">Nom</label><input id="ct-name" maxlength="100"/><span class="fe" id="err-ct-name"></span></div>
+          <div class="fg"><label data-i18n="contact.email_label">Email</label><input id="ct-email" type="email" maxlength="200"/><span class="fe" id="err-ct-email"></span></div>
+          <div class="fg"><label data-i18n="contact.message">Message</label><textarea id="ct-msg" rows="5" maxlength="2000"></textarea><span class="fe" id="err-ct-msg"></span></div>
+          <button type="submit" class="btn-submit" data-i18n="contact.send">Envoyer →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div><script>
+/* ═══════════════════════════════════════════════════════════════════
+   ARTISAN MAROCAIN — PRODUCTION
+   ✅ Stripe Checkout (Vercel Serverless)
+   ✅ PayPal Live (wallet-only)
+   ✅ 6 langues : AR / EN / FR / DE / ES / IT
+   ✅ 18 produits avec vraies images
+═══════════════════════════════════════════════════════════════════ */
+
+// ╔══════════════════════════════════════════╗
+// ║  CONFIG — REMPLACEZ CES VALEURS          ║
+const PAYPAL_LIVE_CLIENT_ID = 'AbI2OKDDRP-_Qt_0IMkV3K1MHeWD1hyIv8a6jqg9RePb-6BIEz67il0X_CRNh3Ipgl63Bx2G2EkF1Orh';
+const STRIPE_PK = 'VOTRE_STRIPE_PUBLISHABLE_KEY'; // pk_live_51...
+// ╚══════════════════════════════════════════╝
+
+const WA = '4915566140625';
+
+const TR = {
+  ar:{dir:'rtl',
+    nav:{home:'الرئيسية',products:'المنتجات',contact:'التواصل',cart:'السلة'},
+    hero:{badge:'حرف مغربية أصيلة',title:'كنوز الحرف اليدوية',subtitle:'الحرف المغربية الأصيلة — مصنوعة يدوياً، تُشحن إلى أوروبا.',cta:'اكتشف المجموعة'},
+    stats:{products:'منتج',handmade:'يدوي ١٠٠٪',delivery:'توصيل أوروبا',langs:'لغات'},
+    categories:{all:'الكل',tapis:'سجاد',caftan:'قفطان',lampes:'مصابيح',artisanat:'حرف',soin:'عناية',bijoux:'مجوهرات'},
+    product:{addToCart:'أضف للسلة',buyWhatsapp:'واتساب',outOfStock:'نفذت الكمية',buyNow:'اشتري الآن'},
+    cart:{title:'سلة التسوق',empty:'السلة فارغة',total:'المجموع',checkout:'إتمام الشراء'},
+    checkout:{title:'إتمام الطلب',secure:'دفع آمن',shipping:'معلومات التوصيل',firstName:'الاسم الأول',lastName:'الاسم الأخير',email:'البريد الإلكتروني',phone:'الهاتف',address:'العنوان',city:'المدينة',country:'البلد',zip:'الرمز البريدي',payment:'الدفع',pay_stripe:'الدفع بالبطاقة',stripe_note:'دفع آمن عبر Stripe',or_paypal:'أو الدفع بـ PayPal',pp_note:'تسجيل دخول آمن إلى حساب PayPal.',loading:'جاري التحميل...',or_whatsapp:'أو الطلب عبر:',summary:'ملخص الطلب',subtotal:'المجموع الجزئي',shipping_free:'الشحن',free:'مجاني ✓',tax:'ضريبة (19٪)',total:'المجموع الكلي',back:'← العودة',pay_confirmed:'✅ تم تأكيد الدفع',pp_config:'إعداد PayPal مطلوب'},
+    contact:{title:'تواصل معنا',subtitle:'متاحون عبر الهاتف والبريد وواتساب.',address:'العنوان',phone:'الهاتف',email_label:'البريد الإلكتروني',form_title:'أرسل رسالة',sent:'✓ تم الإرسال!',name:'الاسم الكامل',message:'الرسالة',send:'إرسال →',maps:'خرائط جوجل'},
+    section:{selection:'✦ مختاراتنا',desc:'قطع فريدة من صناع حرفيين في فاس ومراكش.'},
+    story:{title:'الحرف المغربية',text:'كل قطعة تحكي قصة — منسوجة، محفورة، مطرزة بأيدي حرفيين يحافظون على قرون من التقاليد.'},
+    why:{eye:'لماذا نحن',title:'جودة وثقة','1':{title:'صناعة يدوية',desc:'١٠٠٪ حرفي، أصالة مضمونة.'},'2':{title:'توصيل أوروبا',desc:'شحن سريع في جميع أنحاء أوروبا.'},'3':{title:'Stripe + PayPal',desc:'مدفوعات آمنة Visa, Mastercard, PayPal.'},'4':{title:'واتساب مباشر',desc:'دعم مباشر لكل قطعة.'}},
+    sort:{default:'ترتيب',asc:'السعر ↑',desc:'السعر ↓'},
+    trust:{secure:'دفع آمن',free:'شحن مجاني لأوروبا',return:'إرجاع خلال ١٤ يوم',support:'دعم واتساب'},
+    footer:{tagline:'حرف مغربية أصيلة',nav:'التنقل',contact:'التواصل',rights:'جميع الحقوق محفوظة'},
+  },
+  en:{dir:'ltr',
+    nav:{home:'Home',products:'Products',contact:'Contact',cart:'Cart'},
+    hero:{badge:'Authentic Moroccan Craftsmanship',title:'Artisan Treasures',subtitle:'Authentic Moroccan craftsmanship — handmade, delivered across Europe.',cta:'Discover the collection'},
+    stats:{products:'Products',handmade:'Handmade',delivery:'EU Delivery',langs:'Languages'},
+    categories:{all:'All',tapis:'Rugs',caftan:'Caftan',lampes:'Lamps',artisanat:'Crafts',soin:'Care',bijoux:'Jewellery'},
+    product:{addToCart:'Add to cart',buyWhatsapp:'WhatsApp',outOfStock:'Out of stock',buyNow:'Buy now'},
+    cart:{title:'Your cart',empty:'Your cart is empty',total:'Total',checkout:'Checkout'},
+    checkout:{title:'Complete your order',secure:'Secure Checkout',shipping:'Shipping information',firstName:'First name',lastName:'Last name',email:'Email',phone:'Phone',address:'Address',city:'City',country:'Country',zip:'Postal code',payment:'Payment',pay_stripe:'Pay by card',stripe_note:'Secure payment by Stripe — Visa, Mastercard, Apple Pay, Google Pay',or_paypal:'or pay with PayPal',pp_note:'Securely log in to your PayPal account.',loading:'Loading...',or_whatsapp:'Or order via:',summary:'Order summary',subtotal:'Subtotal',shipping_free:'Shipping',free:'Free ✓',tax:'VAT (19%)',total:'Total',back:'← Back to shop',pay_confirmed:'✅ Payment confirmed',pp_config:'PayPal configuration required'},
+    contact:{title:'Contact',subtitle:'Available by phone, email and WhatsApp.',address:'Address',phone:'Phone',email_label:'Email',form_title:'Send us a message',sent:'✓ Message sent!',name:'Full name',message:'Message',send:'Send →',maps:'View on Google Maps'},
+    section:{selection:'✦ Our Selection',desc:'Unique pieces crafted by artisans from Fès and Marrakech.'},
+    story:{title:'Moroccan Craftsmanship',text:'Each piece tells a story — woven, chiselled, embroidered by artisans perpetuating centuries of Berber and Andalusian tradition.'},
+    why:{eye:'Why choose us',title:'Quality & Trust','1':{title:'Handmade',desc:'100% artisanal, guaranteed authenticity.'},'2':{title:'EU Delivery',desc:'Fast shipping across Europe.'},'3':{title:'Stripe + PayPal',desc:'Secure payments: Visa, Mastercard, PayPal.'},'4':{title:'WhatsApp Direct',desc:'Direct support for every piece.'}},
+    sort:{default:'Sort by',asc:'Price ↑',desc:'Price ↓'},
+    trust:{secure:'Secure payment',free:'Free EU shipping',return:'14-day returns',support:'WhatsApp support'},
+    footer:{tagline:'Authentic craftsmanship from Morocco',nav:'Navigation',contact:'Contact',rights:'All rights reserved'},
+  },
+  fr:{dir:'ltr',
+    nav:{home:'Accueil',products:'Produits',contact:'Contact',cart:'Panier'},
+    hero:{badge:'Artisanat Authentique du Maroc',title:'Trésors Artisanaux',subtitle:"L'artisanat marocain authentique — tissé à la main, livré en Europe.",cta:'Découvrir la collection'},
+    stats:{products:'Produits',handmade:'Fait Main',delivery:'Livraison EU',langs:'Langues'},
+    categories:{all:'Tous',tapis:'Tapis',caftan:'Caftan',lampes:'Lampes',artisanat:'Artisanat',soin:'Soins',bijoux:'Bijoux'},
+    product:{addToCart:'Ajouter au panier',buyWhatsapp:'WhatsApp',outOfStock:'Épuisé',buyNow:'Acheter'},
+    cart:{title:'Votre panier',empty:'Votre panier est vide',total:'Total',checkout:'Commander'},
+    checkout:{title:'Finaliser la commande',secure:'Paiement Sécurisé',shipping:'Informations de livraison',firstName:'Prénom',lastName:'Nom',email:'E-mail',phone:'Téléphone',address:'Adresse',city:'Ville',country:'Pays',zip:'Code postal',payment:'Paiement',pay_stripe:'Payer par carte',stripe_note:'Stripe — Visa, Mastercard, Apple Pay, Google Pay',or_paypal:'ou payer avec PayPal',pp_note:'Connexion sécurisée à votre compte PayPal.',loading:'Chargement...',or_whatsapp:'Ou commander via :',summary:'Récapitulatif',subtotal:'Sous-total',shipping_free:'Livraison',free:'Gratuite ✓',tax:'TVA (19%)',total:'Total',back:'← Retour à la boutique',pay_confirmed:'✅ Paiement confirmé',pp_config:'Configuration PayPal requise'},
+    contact:{title:'Contact',subtitle:'Disponibles par téléphone, email et WhatsApp.',address:'Adresse',phone:'Téléphone',email_label:'Email',form_title:'Envoyez-nous un message',sent:'✓ Message envoyé !',name:'Nom complet',message:'Message',send:'Envoyer →',maps:'Voir sur Google Maps'},
+    section:{selection:'✦ Notre Sélection',desc:'Pièces uniques fabriquées par des artisans de Fès et Marrakech.'},
+    story:{title:'Savoir-faire Marocain',text:"Chaque pièce raconte une histoire — tissée, ciselée, brodée par des artisans perpétuant des siècles de tradition berbère et andalouse."},
+    why:{eye:'Pourquoi nous choisir',title:'Qualité & Confiance','1':{title:'Fait Main',desc:'100% artisanal, authenticité garantie.'},'2':{title:'Livraison EU',desc:"Expédition rapide dans toute l'Europe."},'3':{title:'Stripe + PayPal',desc:'Paiements sécurisés Visa, Mastercard, PayPal.'},'4':{title:'WhatsApp Direct',desc:'Support direct pour chaque pièce.'}},
+    sort:{default:'Trier par',asc:'Prix ↑',desc:'Prix ↓'},
+    trust:{secure:'Paiement sécurisé',free:'Livraison gratuite EU',return:'Retours 14 jours',support:'Support WhatsApp'},
+    footer:{tagline:'Artisanat authentique du Maroc',nav:'Navigation',contact:'Contact',rights:'Tous droits réservés'},
+  },
+  de:{dir:'ltr',
+    nav:{home:'Startseite',products:'Produkte',contact:'Kontakt',cart:'Warenkorb'},
+    hero:{badge:'Authentisches Kunsthandwerk aus Marokko',title:'Handgefertigte Schätze',subtitle:'Authentisches marokkanisches Kunsthandwerk — handgefertigt, geliefert in Europa.',cta:'Kollektion entdecken'},
+    stats:{products:'Produkte',handmade:'Handgemacht',delivery:'EU-Lieferung',langs:'Sprachen'},
+    categories:{all:'Alle',tapis:'Teppiche',caftan:'Caftan',lampes:'Lampen',artisanat:'Kunsthandwerk',soin:'Pflege',bijoux:'Schmuck'},
+    product:{addToCart:'In den Warenkorb',buyWhatsapp:'WhatsApp',outOfStock:'Ausverkauft',buyNow:'Jetzt kaufen'},
+    cart:{title:'Ihr Warenkorb',empty:'Ihr Warenkorb ist leer',total:'Gesamt',checkout:'Zur Kasse'},
+    checkout:{title:'Bestellung abschließen',secure:'Sicherer Checkout',shipping:'Lieferinformationen',firstName:'Vorname',lastName:'Nachname',email:'E-Mail',phone:'Telefon',address:'Adresse',city:'Stadt',country:'Land',zip:'PLZ',payment:'Zahlung',pay_stripe:'Mit Karte bezahlen',stripe_note:'Stripe — Visa, Mastercard, Apple Pay, Google Pay',or_paypal:'oder mit PayPal bezahlen',pp_note:'Sicher in Ihr PayPal-Konto einloggen.',loading:'Wird geladen...',or_whatsapp:'Oder bestellen per:',summary:'Bestellübersicht',subtotal:'Zwischensumme',shipping_free:'Versand',free:'Kostenlos ✓',tax:'MwSt (19%)',total:'Gesamt',back:'← Zurück zum Shop',pay_confirmed:'✅ Zahlung bestätigt',pp_config:'PayPal-Konfiguration erforderlich'},
+    contact:{title:'Kontakt',subtitle:'Erreichbar per Telefon, E-Mail und WhatsApp.',address:'Adresse',phone:'Telefon',email_label:'E-Mail',form_title:'Schreiben Sie uns',sent:'✓ Nachricht gesendet!',name:'Name',message:'Nachricht',send:'Senden →',maps:'Auf Google Maps anzeigen'},
+    section:{selection:'✦ Unsere Auswahl',desc:'Einzigartige Stücke von Handwerkern aus Fès und Marrakesch.'},
+    story:{title:'Marokkanisches Handwerk',text:'Jedes Stück erzählt eine Geschichte — gewebt, gemeißelt, gestickt von Handwerkern, die jahrhundertelange Tradition fortführen.'},
+    why:{eye:'Warum uns wählen',title:'Qualität & Vertrauen','1':{title:'Handgemacht',desc:'100% handgefertigt, Authentizität garantiert.'},'2':{title:'EU-Lieferung',desc:'Schneller Versand in ganz Europa.'},'3':{title:'Stripe + PayPal',desc:'Sichere Zahlungen: Visa, Mastercard, PayPal.'},'4':{title:'WhatsApp Direkt',desc:'Direkter Support für jedes Stück.'}},
+    sort:{default:'Sortieren',asc:'Preis ↑',desc:'Preis ↓'},
+    trust:{secure:'Sichere Zahlung',free:'Kostenloser EU-Versand',return:'14 Tage Rückgabe',support:'WhatsApp Support'},
+    footer:{tagline:'Authentisches Kunsthandwerk aus Marokko',nav:'Navigation',contact:'Kontakt',rights:'Alle Rechte vorbehalten'},
+  },
+  es:{dir:'ltr',
+    nav:{home:'Inicio',products:'Productos',contact:'Contacto',cart:'Carrito'},
+    hero:{badge:'Artesanía Auténtica de Marruecos',title:'Tesoros Artesanales',subtitle:'Artesanía marroquí auténtica — hecha a mano, entregada en Europa.',cta:'Descubrir la colección'},
+    stats:{products:'Productos',handmade:'Hecho a Mano',delivery:'Entrega EU',langs:'Idiomas'},
+    categories:{all:'Todos',tapis:'Alfombras',caftan:'Caftán',lampes:'Lámparas',artisanat:'Artesanía',soin:'Cuidado',bijoux:'Joyería'},
+    product:{addToCart:'Añadir al carrito',buyWhatsapp:'WhatsApp',outOfStock:'Agotado',buyNow:'Comprar'},
+    cart:{title:'Tu carrito',empty:'Tu carrito está vacío',total:'Total',checkout:'Finalizar'},
+    checkout:{title:'Finalizar pedido',secure:'Pago Seguro',shipping:'Información de entrega',firstName:'Nombre',lastName:'Apellido',email:'Correo',phone:'Teléfono',address:'Dirección',city:'Ciudad',country:'País',zip:'Código postal',payment:'Pago',pay_stripe:'Pagar con tarjeta',stripe_note:'Stripe — Visa, Mastercard, Apple Pay, Google Pay',or_paypal:'o pagar con PayPal',pp_note:'Inicia sesión en tu cuenta PayPal.',loading:'Cargando...',or_whatsapp:'O pedir por:',summary:'Resumen',subtotal:'Subtotal',shipping_free:'Envío',free:'Gratis ✓',tax:'IVA (19%)',total:'Total',back:'← Volver',pay_confirmed:'✅ Pago confirmado',pp_config:'Configuración PayPal requerida'},
+    contact:{title:'Contacto',subtitle:'Disponibles por teléfono, email y WhatsApp.',address:'Dirección',phone:'Teléfono',email_label:'Correo',form_title:'Envíenos un mensaje',sent:'✓ ¡Mensaje enviado!',name:'Nombre completo',message:'Mensaje',send:'Enviar →',maps:'Ver en Google Maps'},
+    section:{selection:'✦ Nuestra Selección',desc:'Piezas únicas fabricadas por artesanos de Fez y Marrakech.'},
+    story:{title:'Artesanía Marroquí',text:'Cada pieza cuenta una historia — tejida, cincelada, bordada por artesanos que perpetúan siglos de tradición.'},
+    why:{eye:'Por qué elegirnos',title:'Calidad & Confianza','1':{title:'Hecho a Mano',desc:'100% artesanal.'},'2':{title:'Envío EU',desc:'Envío rápido.'},'3':{title:'Stripe + PayPal',desc:'Pagos seguros.'},'4':{title:'WhatsApp Directo',desc:'Soporte directo.'}},
+    sort:{default:'Ordenar por',asc:'Precio ↑',desc:'Precio ↓'},
+    trust:{secure:'Pago seguro',free:'Envío gratis EU',return:'Devoluciones 14 días',support:'Soporte WhatsApp'},
+    footer:{tagline:'Artesanía auténtica de Marruecos',nav:'Navegación',contact:'Contacto',rights:'Todos los derechos reservados'},
+  },
+  it:{dir:'ltr',
+    nav:{home:'Home',products:'Prodotti',contact:'Contatti',cart:'Carrello'},
+    hero:{badge:'Artigianato Autentico del Marocco',title:'Tesori Artigianali',subtitle:'Artigianato marocchino autentico — fatto a mano, consegnato in Europa.',cta:'Scopri la collezione'},
+    stats:{products:'Prodotti',handmade:'Fatto a Mano',delivery:'Consegna EU',langs:'Lingue'},
+    categories:{all:'Tutti',tapis:'Tappeti',caftan:'Caftan',lampes:'Lampade',artisanat:'Artigianato',soin:'Cura',bijoux:'Gioielli'},
+    product:{addToCart:'Aggiungi al carrello',buyWhatsapp:'WhatsApp',outOfStock:'Esaurito',buyNow:'Acquista'},
+    cart:{title:'Il tuo carrello',empty:'Il tuo carrello è vuoto',total:'Totale',checkout:'Procedi'},
+    checkout:{title:"Completa l'ordine",secure:'Pagamento Sicuro',shipping:'Informazioni di consegna',firstName:'Nome',lastName:'Cognome',email:'Email',phone:'Telefono',address:'Indirizzo',city:'Città',country:'Paese',zip:'CAP',payment:'Pagamento',pay_stripe:'Paga con carta',stripe_note:'Stripe — Visa, Mastercard, Apple Pay, Google Pay',or_paypal:'o paga con PayPal',pp_note:'Accedi al tuo conto PayPal.',loading:'Caricamento...',or_whatsapp:'O ordina tramite:',summary:'Riepilogo',subtotal:'Subtotale',shipping_free:'Spedizione',free:'Gratuita ✓',tax:'IVA (19%)',total:'Totale',back:'← Torna al negozio',pay_confirmed:'✅ Pagamento confermato',pp_config:'Configurazione PayPal richiesta'},
+    contact:{title:'Contatti',subtitle:'Disponibili per telefono, email e WhatsApp.',address:'Indirizzo',phone:'Telefono',email_label:'Email',form_title:'Inviaci un messaggio',sent:'✓ Messaggio inviato!',name:'Nome completo',message:'Messaggio',send:'Invia →',maps:'Vedi su Google Maps'},
+    section:{selection:'✦ La Nostra Selezione',desc:'Pezzi unici realizzati da artigiani di Fez e Marrakech.'},
+    story:{title:'Artigianato Marocchino',text:'Ogni pezzo racconta una storia — tessuto, cesellato, ricamato da artigiani che perpetuano secoli di tradizione.'},
+    why:{eye:'Perché sceglierci',title:'Qualità & Fiducia','1':{title:'Fatto a Mano',desc:'100% artigianale.'},'2':{title:'Consegna EU',desc:'Spedizione rapida.'},'3':{title:'Stripe + PayPal',desc:'Pagamenti sicuri.'},'4':{title:'WhatsApp Diretto',desc:'Supporto diretto.'}},
+    sort:{default:'Ordina per',asc:'Prezzo ↑',desc:'Prezzo ↓'},
+    trust:{secure:'Pagamento sicuro',free:'Spedizione gratuita EU',return:'Resi 14 giorni',support:'Supporto WhatsApp'},
+    footer:{tagline:'Artigianato autentico dal Marocco',nav:'Navigazione',contact:'Contatti',rights:'Tutti i diritti riservati'},
+  }
+};
+function t(path,fb=''){const k=path.split('.');let v=TR[lang];for(const x of k){v=v?.[x];if(v===undefined)return fb||path}return v??fb??path}
+
+let lang='fr',cart=JSON.parse(localStorage.getItem('am_cart')||'[]'),homeCat='all',prodCat='all',ppRendered=false,ppLocale='';
+try{lang=localStorage.getItem('am_lang')||'fr'}catch(e){}
+
+const SEED=[
+  {id:'p1', price:29, category:'artisanat',image:'/images/tagine-coloree-maroc.jpg',          stock:20,
+    name:'Tagine Colorée Maroc',description:'Tagine en céramique peinte à la main, motifs traditionnels de Fès.',
+    lang_name:{ar:'طاجين ملوّن مغربي',en:'Colourful Moroccan Tagine',fr:'Tagine Colorée Maroc',de:'Buntes Marokkanisches Tajine',es:'Tagine Colorido Marroquí',it:'Tagine Colorata Marocchina'},
+    lang_desc:{ar:'طاجين من السيراميك المرسوم يدوياً، زخارف تقليدية من فاس.',en:'Hand-painted ceramic tagine with traditional Fès motifs.',fr:'Tagine en céramique peinte à la main, motifs traditionnels de Fès.',de:'Handbemaltes Keramik-Tajine mit traditionellen Motiven aus Fès.',es:'Tagine de cerámica pintada a mano, motivos tradicionales de Fez.',it:'Tagine in ceramica dipinta a mano con motivi tradizionali di Fès.'}},
+  {id:'p2', price:45, category:'lampes',   image:'/images/theiere-or-traditionnelle.webp',     stock:15,
+    name:'Théière Or Traditionnelle',description:'Théière en laiton doré, finitions traditionnelles marocaines.',
+    lang_name:{ar:'إبريق شاي ذهبي تقليدي',en:'Traditional Gold Teapot',fr:'Théière Or Traditionnelle',de:'Traditionelle Goldene Teekanne',es:'Tetera Dorada Tradicional',it:'Teiera Dorata Tradizionale'},
+    lang_desc:{ar:'إبريق شاي من النحاس الأصفر المذهّب، تشطيبات مغربية تقليدية.',en:'Golden brass teapot with traditional Moroccan finishes.',fr:'Théière en laiton doré, finitions traditionnelles marocaines.',de:'Teekanne aus vergoldetem Messing mit traditionellen marokkanischen Oberflächen.',es:'Tetera de latón dorado con acabados tradicionales marroquíes.',it:'Teiera in ottone dorato con finiture tradizionali marocchine.'}},
+  {id:'p3', price:38, category:'artisanat',image:'/images/plateau-argent-cisele.webp',         stock:10,
+    name:'Plateau Argent Ciselé',description:'Grand plateau en argent ciselé à la main, motifs andalous.',
+    lang_name:{ar:'صينية فضية منقوشة',en:'Chiselled Silver Tray',fr:'Plateau Argent Ciselé',de:'Ziseliertes Silbertablett',es:'Bandeja de Plata Cincelada',it:'Vassoio Argento Cesellato'},
+    lang_desc:{ar:'صينية كبيرة من الفضة المنقوشة يدوياً بنقوش أندلسية.',en:'Large hand-chiselled silver tray with Andalusian motifs.',fr:'Grand plateau en argent ciselé à la main, motifs andalous.',de:'Großes handziseliertes Silbertablett mit andalusischen Motiven.',es:'Gran bandeja de plata cincelada a mano con motivos andaluces.',it:'Grande vassoio in argento cesellato a mano con motivi andalusi.'}},
+  {id:'p4', price:32, category:'artisanat',image:'/images/assiettes-ceramique-fes.jpg',        stock:20,
+    name:'Assiettes Céramique Fès',description:'Assiettes décoratives en céramique peinte, collection Fès.',
+    lang_name:{ar:'أطباق خزف فاس',en:'Fès Painted Ceramic Plates',fr:'Assiettes Céramique Fès',de:'Keramikteller Fès',es:'Platos de Cerámica de Fez',it:'Piatti in Ceramica di Fès'},
+    lang_desc:{ar:'أطباق زخرفية من الخزف المرسوم، مجموعة فاس.',en:'Decorative hand-painted ceramic plates, Fès collection.',fr:'Assiettes décoratives en céramique peinte, collection Fès.',de:'Dekorative, handbemalte Keramikteller, Fès-Kollektion.',es:'Platos decorativos de cerámica pintada a mano, colección Fez.',it:'Piatti decorativi in ceramica dipinta a mano, collezione Fès.'}},
+  {id:'p5', price:55, category:'lampes',   image:'/images/theiere-argent-beldi.webp',          stock:12,
+    name:'Théière Argent Beldi',description:'Théière beldi en argent, style classique de Marrakech.',
+    lang_name:{ar:'إبريق شاي بلدي فضي',en:'Silver Beldi Teapot',fr:'Théière Argent Beldi',de:'Silberne Beldi Teekanne',es:'Tetera de Plata Beldi',it:'Teiera Argento Beldi'},
+    lang_desc:{ar:'إبريق شاي بلدي من الفضة، الطراز الكلاسيكي من مراكش.',en:'Silver beldi teapot, classic Marrakech style.',fr:'Théière beldi en argent, style classique de Marrakech.',de:'Silberne Beldi-Teekanne im klassischen Stil von Marrakesch.',es:'Tetera beldi de plata, estilo clásico de Marrakech.',it:'Teiera beldi in argento, stile classico di Marrakech.'}},
+  {id:'p6', price:65, category:'tapis',    image:'/images/poufs-cuir-berbere.avif',            stock:8,
+    name:'Poufs Cuir Berbère',description:'Pouf en cuir véritable, broderie berbère artisanale.',
+    lang_name:{ar:'بوف جلدي أمازيغي',en:'Berber Leather Pouf',fr:'Poufs Cuir Berbère',de:'Berberleder-Sitzkissen',es:'Puf de Cuero Bereber',it:'Pouf in Cuoio Berbero'},
+    lang_desc:{ar:'بوف من الجلد الطبيعي مع تطريز أمازيغي يدوي.',en:'Genuine leather pouf with handcrafted Berber embroidery.',fr:'Pouf en cuir véritable, broderie berbère artisanale.',de:'Sitzpouf aus echtem Leder mit handwerklicher Berber-Stickerei.',es:'Puf de cuero genuino con bordado bereber artesanal.',it:'Pouf in pelle vera con ricamo berbero artigianale.'}},
+  {id:'p7', price:28, category:'soin',     image:'/images/paniers-osier-cuir.webp',            stock:25,
+    name:'Paniers Osier & Cuir',description:'Panier tressé en osier avec anses en cuir naturel.',
+    lang_name:{ar:'سلال الخوص والجلد',en:'Wicker & Leather Baskets',fr:'Paniers Osier & Cuir',de:'Weiden- & Lederkörbe',es:'Cestas de Mimbre y Cuero',it:'Cesti in Vimini e Cuoio'},
+    lang_desc:{ar:'سلة مضفورة من الخوص مع مقابض جلدية طبيعية.',en:'Hand-woven wicker basket with natural leather handles.',fr:'Panier tressé en osier avec anses en cuir naturel.',de:'Handgeflochtener Weidenkorb mit Griffen aus Naturleder.',es:'Cesta tejida a mano en mimbre con asas de cuero natural.',it:'Cesta intrecciata a mano in vimini con manici in cuoio naturale.'}},
+  {id:'p8', price:75, category:'artisanat',image:'/images/tagine-cuivre-luxe.webp',            stock:6,
+    name:'Tagine Cuivre Luxe',description:'Tagine en cuivre martelé, finition luxe pour la table.',
+    lang_name:{ar:'طاجين نحاسي فاخر',en:'Luxury Copper Tagine',fr:'Tagine Cuivre Luxe',de:'Luxus Kupfer-Tajine',es:'Tagine de Cobre de Lujo',it:'Tagine in Rame Lusso'},
+    lang_desc:{ar:'طاجين من النحاس المطروق، تشطيب فاخر لمائدة مميزة.',en:'Hammered copper tagine with luxury finish for the table.',fr:'Tagine en cuivre martelé, finition luxe pour la table.',de:'Gehämmertes Kupfer-Tajine mit Luxusverarbeitung für den Tisch.',es:'Tagine de cobre martillado con acabado de lujo para la mesa.',it:'Tagine in rame martellato con finitura lusso per la tavola.'}},
+  {id:'p9', price:89, category:'artisanat',image:'/images/cocottes-cuivre-set.webp',           stock:5,
+    name:'Cocottes Cuivre Set',description:'Set de 3 cocottes en cuivre martelé avec anses laiton.',
+    lang_name:{ar:'طقم قدور نحاسية',en:'Copper Cookware Set',fr:'Cocottes Cuivre Set',de:'Kupfertöpfe-Set',es:'Set de Cazuelas de Cobre',it:'Set Pentole in Rame'},
+    lang_desc:{ar:'طقم من 3 قدور من النحاس المطروق مع مقابض من النحاس الأصفر.',en:'Set of 3 hammered copper pots with brass handles.',fr:'Set de 3 cocottes en cuivre martelé avec anses laiton.',de:'Set aus 3 gehämmerten Kupftöpfen mit Messinggriffen.',es:'Set de 3 cazuelas de cobre martillado con asas de latón.',it:'Set di 3 pentole in rame martellato con manici in ottone.'}},
+  {id:'p10',price:35, category:'artisanat',image:'/images/plateau-bois-sculpte.webp',          stock:18,
+    name:'Plateau Bois Sculpté',description:"Plateau en bois d'arganier sculpté à la main.",
+    lang_name:{ar:'صينية خشبية منحوتة',en:'Hand-Carved Wooden Tray',fr:'Plateau Bois Sculpté',de:'Handgeschnitztes Holztablett',es:'Bandeja de Madera Tallada',it:'Vassoio in Legno Intagliato'},
+    lang_desc:{ar:'صينية من خشب شجر الأركان منحوتة يدوياً.',en:'Hand-carved argan wood tray.',fr:"Plateau en bois d'arganier sculpté à la main.",de:'Handgeschnitztes Tablett aus Arganholz.',es:'Bandeja de madera de argán tallada a mano.',it:'Vassoio in legno di argan intagliato a mano.'}},
+  {id:'p11',price:58, category:'bijoux',   image:'/images/sac-kilim-cuir.webp',               stock:10,
+    name:'Sac Kilim Cuir',description:'Sac de voyage en tissu kilim et cuir véritable.',
+    lang_name:{ar:'حقيبة كيليم وجلد',en:'Kilim & Leather Bag',fr:'Sac Kilim Cuir',de:'Kilim-Ledertasche',es:'Bolso Kilim de Cuero',it:'Borsa Kilim e Cuoio'},
+    lang_desc:{ar:'حقيبة سفر من قماش الكيليم والجلد الطبيعي.',en:'Travel bag made of kilim fabric and genuine leather.',fr:'Sac de voyage en tissu kilim et cuir véritable.',de:'Reisetasche aus Kilim-Stoff und echtem Leder.',es:'Bolso de viaje en tela kilim y cuero genuino.',it:'Borsa da viaggio in tessuto kilim e pelle vera.'}},
+  {id:'p12',price:72, category:'bijoux',   image:'/images/sac-cuir-marocain.webp',            stock:8,
+    name:'Sac Cuir Marocain',description:'Sac en cuir fin de Marrakech, coutures artisanales.',
+    lang_name:{ar:'حقيبة جلدية مغربية',en:'Moroccan Leather Bag',fr:'Sac Cuir Marocain',de:'Marokkanische Ledertasche',es:'Bolso de Cuero Marroquí',it:'Borsa in Cuoio Marocchino'},
+    lang_desc:{ar:'حقيبة من الجلد الرفيع من مراكش، خياطة يدوية.',en:'Fine leather bag from Marrakech with artisan stitching.',fr:'Sac en cuir fin de Marrakech, coutures artisanales.',de:'Feine Ledertasche aus Marrakesch mit handwerklichen Nähten.',es:'Bolso de cuero fino de Marrakech con costuras artesanales.',it:'Borsa in cuoio pregiato di Marrakech con cuciture artigianali.'}},
+  {id:'p13',price:22, category:'artisanat',image:'/images/tagine-terre-cuite.webp',           stock:30,
+    name:'Tagine Terre Cuite',description:'Tagine en terre cuite authentique, idéal pour la cuisson.',
+    lang_name:{ar:'طاجين فخار أصيل',en:'Authentic Clay Tagine',fr:'Tagine Terre Cuite',de:'Authentisches Tonerde-Tajine',es:'Tagine de Barro Auténtico',it:'Tagine in Terracotta Autentico'},
+    lang_desc:{ar:'طاجين من الفخار الأصيل، مثالي للطهي التقليدي.',en:'Authentic terracotta tagine, ideal for traditional cooking.',fr:'Tagine en terre cuite authentique, idéal pour la cuisson.',de:'Authentisches Tonerde-Tajine, ideal für traditionelles Kochen.',es:'Tagine de barro auténtico, ideal para la cocción tradicional.',it:'Tagine in terracotta autentico, ideale per la cottura tradizionale.'}},
+  {id:'p14',price:18, category:'artisanat',image:'/images/cruche-poterie-berbere.webp',        stock:20,
+    name:'Cruche Poterie Berbère',description:'Cruche et tasse en poterie berbère, décor traditionnel.',
+    lang_name:{ar:'إبريق فخار أمازيغي',en:'Berber Pottery Jug',fr:'Cruche Poterie Berbère',de:'Berbertöpferei-Krug',es:'Jarra de Alfarería Bereber',it:'Brocca in Ceramica Berbera'},
+    lang_desc:{ar:'إبريق وكوب من الفخار الأمازيغي بزخارف تقليدية.',en:'Berber pottery jug and cup with traditional decor.',fr:'Cruche et tasse en poterie berbère, décor traditionnel.',de:'Berbertöpferei-Krug und Tasse mit traditionellem Dekor.',es:'Jarra y taza de alfarería bereber con decoración tradicional.',it:'Brocca e tazza in ceramica berbera con decorazione tradizionale.'}},
+  {id:'p15',price:15, category:'soin',     image:'/images/dattes-confites-maroc.avif',         stock:50,
+    name:'Dattes Confites Maroc',description:'Dattes confites premium du Maroc, saveur authentique.',
+    lang_name:{ar:'تمر مغربي مُعلَّب',en:'Moroccan Candied Dates',fr:'Dattes Confites Maroc',de:'Marokkanische Kandierte Datteln',es:'Dátiles Confitados Marroquíes',it:'Datteri Canditi Marocchini'},
+    lang_desc:{ar:'تمر مُحلَّى فاخر من المغرب، نكهة أصيلة.',en:'Premium candied dates from Morocco with authentic flavour.',fr:'Dattes confites premium du Maroc, saveur authentique.',de:'Premium-Kandierte Datteln aus Marokko mit authentischem Geschmack.',es:'Dátiles confitados premium de Marruecos, sabor auténtico.',it:'Datteri canditi premium dal Marocco con sapore autentico.'}},
+  {id:'p16',price:120,category:'lampes',   image:'/images/fontaine-zellige-mosaique.webp',     stock:3,
+    name:'Fontaine Zellige Mosaïque',description:'Fontaine décorative en zellige et mosaïque, pièce unique.',
+    lang_name:{ar:'نافورة زليج فسيفساء',en:'Zellige Mosaic Fountain',fr:'Fontaine Zellige Mosaïque',de:'Zellige Mosaik-Brunnen',es:'Fuente de Mosaico Zellige',it:'Fontana Zellige Mosaico'},
+    lang_desc:{ar:'نافورة زخرفية من الزليج والفسيفساء، قطعة فريدة.',en:'Decorative zellige and mosaic fountain, a unique piece.',fr:'Fontaine décorative en zellige et mosaïque, pièce unique.',de:'Dekorativer Zellige und Mosaik-Brunnen, ein einzigartiges Stück.',es:'Fuente decorativa de zellige y mosaico, pieza única.',it:'Fontana decorativa in zellige e mosaico, pezzo unico.'}},
+  {id:'p17',price:95, category:'bijoux',   image:'/images/sac-voyage-cuir.webp',              stock:7,
+    name:'Sac Voyage Cuir',description:'Sac de voyage en cuir pleine fleur, style classique.',
+    lang_name:{ar:'حقيبة سفر جلدية',en:'Full-Grain Leather Travel Bag',fr:'Sac Voyage Cuir',de:'Vollnarbenleder-Reisetasche',es:'Bolso de Viaje de Cuero',it:'Borsa da Viaggio in Pelle'},
+    lang_desc:{ar:'حقيبة سفر من الجلد الكامل المحبب، طراز كلاسيكي.',en:'Full-grain leather travel bag, classic style.',fr:'Sac de voyage en cuir pleine fleur, style classique.',de:'Reisetasche aus Vollnarbenleder, klassischer Stil.',es:'Bolso de viaje de cuero de grano completo, estilo clásico.',it:'Borsa da viaggio in pelle a piena fiore, stile classico.'}},
+  {id:'p18',price:12, category:'bijoux',   image:'/images/bourse-brodee-marrakech.webp',       stock:40,
+    name:'Bourse Brodée Marrakech',description:'Bourses brodées de Marrakech, motifs floraux colorés.',
+    lang_name:{ar:'محفظة مطرزة مراكشية',en:'Embroidered Marrakech Purse',fr:'Bourse Brodée Marrakech',de:'Besticktes Marrakech-Täschchen',es:'Bolsa Bordada de Marrakech',it:'Borsetta Ricamata di Marrakech'},
+    lang_desc:{ar:'حقائب يد مطرزة من مراكش، زخارف زهرية ملونة.',en:'Embroidered purses from Marrakech with colourful floral motifs.',fr:'Bourses brodées de Marrakech, motifs floraux colorés.',de:'Bestickte Täschchen aus Marrakesch mit bunten Blumenmotiven.',es:'Bolsas bordadas de Marrakech con motivos florales coloridos.',it:'Borsette ricamate di Marrakech con motivi floreali colorati.'}},
+];
+// ══════════════════════════════════════════════════════════════════
+// SUPABASE INTEGRATION
+// table: product | bucket: Plateau | image column: filename only
+// ══════════════════════════════════════════════════════════════════
+const SB_URL   = 'https://jadcbmjgyawoccodfdli.supabase.co';
+const SB_KEY   = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImphZGNibWpneWF3b2Njb2RmZGxpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMjAwMDAsImV4cCI6MjA5Mjc5NjAwMH0.3tcpFlcAl3x6zP010xu4oxClo82MSHJaN4bjaKOK3Y4';
+const SB_TABLE = 'product';
+const SB_BUCKET= 'Plateau';
+const SB_H     = {'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'};
+
+// filename → full public Storage URL (encodeURIComponent handles special chars)
+function sbImgUrl(filename){
+  if(!filename||typeof filename!=='string'||!filename.trim()) return '';
+  const f=filename.trim();
+  if(f.startsWith('http')) return f;
+  return`${SB_URL}/storage/v1/object/public/${SB_BUCKET}/${encodeURIComponent(f)}`;
+}
+
+// Supabase DB row → internal product shape used by all UI functions
+// ── getText — resolve multilingual field to single language string ──
+// Handles: plain string, JSON object {fr,en,ar,...}, JSON string '{"fr":"..."}'
+function getText(field, l){
+  if(!field) return '';
+  // Already a plain string — check if it's stringified JSON
+  if(typeof field === 'string'){
+    if(field.trim().startsWith('{')){
+      try{
+        const obj = JSON.parse(field);
+        return obj[l] || obj.fr || obj.en || field;
+      }catch(e){ return field; }
+    }
+    return field; // plain text, return as-is
+  }
+  // Object: {fr:'...', en:'...', ar:'...'}
+  if(typeof field === 'object' && !Array.isArray(field))
+    return field[l] || field.fr || field.en || '';
+  return String(field);
+}
+
+function sbRowToProduct(r){
+  // r.name may be a plain string OR a multilingual JSON object from Edge Function
+  const rawName = r.name || '';
+  const rawDesc = r.description || '';
+
+  // Detect if Supabase returned multilingual object directly in name/description column
+  const nameIsMulti = rawName && typeof rawName === 'object';
+  const descIsMulti = rawDesc && typeof rawDesc === 'object';
+
+  return{
+    id:        String(r.id),
+    _sbId:     r.id,
+    name:      nameIsMulti ? (rawName.fr||rawName.en||'') : String(rawName),
+    price:     +(r.price)  || 0,
+    category:  r.category  || 'artisanat',
+    description: descIsMulti ? (rawDesc.fr||rawDesc.en||'') : String(rawDesc),
+    image:     sbImgUrl(r.image),
+    imageName: r.image     || '',
+    stock:     +(r.stock)  || 0,
+    // Store full multilingual object — getText() will pick the right language at render time
+    lang_name: nameIsMulti ? rawName : (r.lang_name || null),
+    lang_desc: descIsMulti ? rawDesc : (r.lang_desc || null),
+  };
+}
+
+let _sbCache = null;
+
+async function _fetchFromSB(){
+  try{
+    const res = await fetch(
+      `${SB_URL}/rest/v1/${SB_TABLE}?select=*&order=created_at.asc`,
+      {headers: SB_H}
+    );
+    if(!res.ok){
+      const txt = await res.text();
+      console.warn('[Supabase] fetch error',res.status, txt);
+      return null;
+    }
+    const rows = await res.json();
+    // FIX: return empty array when 0 rows — do NOT fall back to SEED
+    if(!Array.isArray(rows)) return null;
+    console.log(`[Supabase] ${rows.length} product(s) loaded from "${SB_TABLE}"`);
+    return rows.map(sbRowToProduct);
+  }catch(e){
+    console.warn('[Supabase] fetch failed:',e.message);
+    return null;
+  }
+}
+
+// Sync getter — returns SB cache, or SEED while async load is pending
+function getProducts(){
+  if(_sbCache!==null) return _sbCache;
+  return SEED;
+}
+
+// Called once on DOMContentLoaded — loads from Supabase, re-renders
+async function initProducts(){
+  const sbData = await _fetchFromSB();
+  if(sbData !== null){           // FIX: accept empty array too (0 products is valid)
+    _sbCache = sbData;
+    renderHome();
+    renderProducts();
+    renderCartItems();
+  }
+}
+// ══════════════════════════════════════════════════════════════════
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+// ── IMAGE FALLBACK ──────────────────────────────────────────────────
+// Inline SVG placeholder — always works, zero external dependency
+const IMG_FALLBACK="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23F1F4F9'/%3E%3Crect x='150' y='90' width='100' height='80' rx='8' fill='%23C9A84C' opacity='.25'/%3E%3Ccircle cx='200' cy='118' r='22' fill='%23C9A84C' opacity='.4'/%3E%3Cpath d='M168 170 l20-30 14 20 10-14 20 24z' fill='%23C9A84C' opacity='.35'/%3E%3Ctext x='200' y='210' text-anchor='middle' font-family='sans-serif' font-size='13' fill='%238890A4'%3EImage not available%3C/text%3E%3C/svg%3E";
+// Called by onerror on every <img> — tries jpg/png siblings before placeholder
+function imgErr(el){
+  const src=el.src||'';
+  // already a data URI or tried everything → show placeholder
+  if(src.startsWith('data:')){el.onerror=null;return;}
+  // webp/avif → try jpg first
+  if(/\.(webp|avif)$/i.test(src)){
+    el.onerror=function(){imgErr(this)};
+    el.src=src.replace(/\.(webp|avif)$/i,'.jpg');
+    return;
+  }
+  // jpg → try png
+  if(/\.jpg$/i.test(src)){
+    el.onerror=function(){imgErr(this)};
+    el.src=src.replace(/\.jpg$/i,'.png');
+    return;
+  }
+  // nothing worked → placeholder
+  el.onerror=null;
+  el.src=IMG_FALLBACK;
+}
+// ────────────────────────────────────────────────────────────────────
+
+function flash(m,ok=false){const e=$('gflash');if(!e)return;e.textContent=m;e.style.background=ok?'#16a34a':'#1A1D23';e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',2400)}
+function showAlert(id,m,type='err'){const e=$(id);if(!e)return;e.className='alert '+type;e.innerHTML=m;e.style.display='block';if(type!=='err')setTimeout(()=>e.style.display='none',8000)}
+function hideAlert(id){const e=$(id);if(e)e.style.display='none'}
+
+// CART
+function saveCart(){try{localStorage.setItem('am_cart',JSON.stringify(cart))}catch(e){}}
+function cartTotal(){return cart.reduce((s,i)=>s+i.price*i.qty,0)}
+function cartCount(){return cart.reduce((s,i)=>s+i.qty,0)}
+function subtotal(){return cartTotal()}
+function taxAmt(){return+(subtotal()*.19).toFixed(2)}
+function grandTotal(){return+(subtotal()+taxAmt()).toFixed(2)}
+function addToCart(id){const p=getProducts().find(x=>x.id===id);if(!p)return;const ex=cart.find(x=>x.id===id);if(ex)ex.qty++;else cart.push({...p,qty:1});saveCart();updateBadge();renderCartItems();flash('✓ '+p.name,true)}
+function removeFromCart(id){cart=cart.filter(x=>x.id!==id);saveCart();updateBadge();renderCartItems();renderSummary()}
+function updateQty(id,q){const i=cart.find(x=>x.id===id);if(i){i.qty=Math.max(1,q);saveCart();updateBadge();renderCartItems();renderSummary()}}
+function updateBadge(){const b=$('cart-badge'),n=cartCount();if(b){b.textContent=n;b.style.display=n>0?'flex':'none'}}
+function renderCartItems(){
+  const el=$('cart-items'),ftr=$('cart-ftr');
+  if(!el)return;
+  if(!cart.length){el.innerHTML=`<div class="cart-empty"><p style="font-weight:600;font-size:14px">${t('cart.empty')}</p></div>`;if(ftr)ftr.style.display='none';return}
+  el.innerHTML=cart.map(i=>`<div class="ci"><img class="ci-img" src="${esc(i.image)}" alt="${esc(i.name)}" onerror="imgErr(this)"/><div class="ci-inf"><div class="ci-name">${esc(i.name)}</div><div class="ci-price">€${i.price.toFixed(2)}</div><div class="ci-qty"><button onclick="updateQty('${i.id}',${i.qty-1})">−</button><span>${i.qty}</span><button onclick="updateQty('${i.id}',${i.qty+1})">+</button></div></div><button class="ci-rm" onclick="removeFromCart('${i.id}')">✕</button></div>`).join('');
+  const tv=$('cart-total-val');if(tv)tv.textContent='€'+cartTotal().toFixed(2);
+  if(ftr)ftr.style.display='block';
+}
+function openCart(){$('ov').classList.add('show');$('cart-sb').classList.add('open');renderCartItems()}
+function closeCart(){$('ov').classList.remove('show');$('cart-sb').classList.remove('open')}
+function goToCheckout(){closeCart();showPage('checkout')}
+
+// PRODUCT CARD
+const WA_MSGS={ar:'مرحباً! أنا مهتم بـ',en:"Hello! I'm interested in",fr:"Bonjour! Je suis intéressé(e) par",de:"Hallo! Ich interessiere mich für",es:"¡Hola! Me interesa",it:"Ciao! Sono interessato/a a"};
+// Stripe Payment Links for specific products (id → url)
+const STRIPE_LINKS = {
+  'p13': 'https://buy.stripe.com/5kQ00ldwE5Jd7j00eA7bW00', // Tagine Terre Cuite €22
+};
+
+function productCard(p){
+  // getText() resolves multilingual {fr,en,ar,...} or plain string to current language
+  const pName = getText(p.lang_name, lang) || getText(p.name, lang) || p.name;
+  const pDesc = getText(p.lang_desc, lang) || getText(p.description, lang) || '';
+  const waMsg=encodeURIComponent(`${WA_MSGS[lang]||WA_MSGS.fr}: ${pName} – €${p.price}`);
+  // Buy button: use Stripe Payment Link if defined, else normal Add to Cart
+  const stripeLink = STRIPE_LINKS[p.id];
+  const buyBtn = stripeLink
+    ? `<a class="btn-add" href="${stripeLink}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;">💳 ${t('product.buyNow','Acheter')}</a>`
+    : `<button class="btn-add" id="add-${p.id}" onclick="addBtnClick('${p.id}')" ${p.stock===0?'disabled':''}>${p.stock===0?t('product.outOfStock'):t('product.addToCart')}</button>`;
+  return`<article class="pc"><div class="pc-img-w"><img class="pc-img" src="${esc(p.image)}" alt="${esc(pName)}" loading="lazy" onerror="imgErr(this)"/><span class="pc-tag t-${p.category}">${t('categories.'+p.category)||p.category}</span></div><div class="pc-body"><h3 class="pc-name">${esc(pName)}</h3>${pDesc?`<p class="pc-desc">${esc(pDesc)}</p>`:''}<div class="pc-foot"><span class="pc-price">€${p.price.toFixed(2)}</span><div class="pc-acts">${buyBtn}<a class="btn-wa-sm" href="https://wa.me/${WA}?text=${waMsg}" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>${t('product.buyWhatsapp')}</a></div></div></div></article>`;
+}
+function addBtnClick(id){addToCart(id);const btn=$('add-'+id);if(btn){btn.classList.add('ok');btn.textContent='✓';setTimeout(()=>{btn.classList.remove('ok');btn.textContent=t('product.addToCart')},1600)}}
+
+function filterHome(cat){homeCat=cat;document.querySelectorAll('#home-cats .cat-pill').forEach(b=>b.classList.toggle('act',b.dataset.cat===cat));renderHome()}
+function renderHome(){
+  const prods=getProducts(),list=homeCat==='all'?prods:prods.filter(p=>p.category===homeCat);
+  const g=$('home-grid');if(g)g.innerHTML=list.slice(0,6).map(productCard).join('');
+  const lbl=t('categories.'+homeCat),title=$('home-sec-title');
+  if(title)title.textContent=(lbl&&lbl!=='categories.'+homeCat)?lbl:'Collection Complète';
+}
+function setProdCat(cat,e){prodCat=cat;document.querySelectorAll('#prod-cats .cat-pill').forEach(b=>b.classList.remove('act'));if(e?.target)e.target.classList.add('act');renderProducts()}
+function renderProducts(){
+  const q=($('prod-search')?.value||'').toLowerCase().trim().slice(0,100);
+  const sort=$('prod-sort')?.value||'';
+  let list=getProducts();
+  if(prodCat!=='all')list=list.filter(p=>p.category===prodCat);
+  if(q)list=list.filter(p=>{
+    const n=(getText(p.lang_name,lang)||p.name||'').toLowerCase();
+    const d=(getText(p.lang_desc,lang)||p.description||'').toLowerCase();
+    return n.includes(q)||d.includes(q);
+  });
+  if(sort==='asc')list=[...list].sort((a,b)=>a.price-b.price);
+  if(sort==='desc')list=[...list].sort((a,b)=>b.price-a.price);
+  const g=$('prod-grid'),c=$('prod-count');
+  if(g)g.innerHTML=list.length?list.map(productCard).join(''):`<div style="text-align:center;padding:60px;color:var(--text3);grid-column:1/-1"><div style="font-size:48px">🔍</div><p>Aucun résultat</p></div>`;
+  if(c)c.textContent=list.length+' produit'+(list.length!==1?'s':'');
+}
+
+function renderSummary(){
+  const el=$('os-items');if(!el)return;
+  if(!cart.length){el.innerHTML=`<div class="co-empty"><div style="font-size:36px;margin-bottom:10px">🛒</div><p>${t('cart.empty')}</p></div>`;['os-sub','os-tax','os-total'].forEach(id=>{if($(id))$(id).textContent='€0.00'});return}
+  el.innerHTML=cart.map(i=>`<div class="os-item"><img class="os-img" src="${esc(i.image)}" alt="${esc(getText(i.lang_name,lang)||i.name)}" onerror="imgErr(this)"/><div class="os-info"><div class="os-name">${esc(getText(i.lang_name,lang)||getText(i.name,lang)||i.name)}</div><div class="os-qty-ctrl"><button class="os-qty-btn" onclick="updateQty('${i.id}',${i.qty-1})">−</button><span class="os-qty-val">${i.qty}</span><button class="os-qty-btn" onclick="updateQty('${i.id}',${i.qty+1})">+</button><button class="os-qty-btn" onclick="removeFromCart('${i.id}')" style="color:var(--red)">✕</button></div></div><div class="os-price">€${(i.price*i.qty).toFixed(2)}</div></div>`).join('');
+  if($('os-sub'))$('os-sub').textContent='€'+subtotal().toFixed(2);
+  if($('os-tax'))$('os-tax').textContent='€'+taxAmt().toFixed(2);
+  if($('os-total'))$('os-total').textContent='€'+grandTotal().toFixed(2);
+  const st=$('stripe-total');if(st)st.textContent=grandTotal().toFixed(2);
+}
+
+const VRULES=[{id:'f-fname',err:'e-fname',key:'checkout.firstName',min:2},{id:'f-lname',err:'e-lname',key:'checkout.lastName',min:2},{id:'f-email',err:'e-email',key:'checkout.email',email:true},{id:'f-phone',err:'e-phone',key:'checkout.phone',min:7},{id:'f-addr',err:'e-addr',key:'checkout.address',min:4},{id:'f-city',err:'e-city',key:'checkout.city',min:2}];
+function validate(){
+  let ok=true;
+  VRULES.forEach(r=>{const v=$(r.id)?.value.trim()||'';const eEl=$(r.err);let msg='';const label=t(r.key)||r.key;if(r.email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))msg='✗ '+label;else if(v.length<(r.min||1))msg='✗ '+label;if(eEl)eEl.textContent=msg;if($(r.id))$(r.id).classList.toggle('err',!!msg);if(msg)ok=false});
+  if(!ok)$('f-fname')?.scrollIntoView({behavior:'smooth',block:'center'});
+  return ok;
+}
+// Read a form field safely — works whether element is visible or not
+function readField(id){
+  const el=document.getElementById(id)||document.querySelector('[id="'+id+'"]');
+  return el?(el.value||'').trim():'';
+}
+function getCustomer(){
+  return{
+    firstName: readField('f-fname'),
+    lastName:  readField('f-lname'),
+    email:     readField('f-email'),
+    phone:     readField('f-phone'),
+    address:   readField('f-addr'),
+    city:      readField('f-city'),
+    country:   readField('f-country')||(document.getElementById('f-country')?.value||''),
+    zip:       readField('f-zip')
+  };
+}
+function saveOrderDB(ref,method,customer){try{const orders=JSON.parse(localStorage.getItem('am_orders')||'[]');orders.unshift({id:ref,method,customer,items:cart.map(i=>({...i})),subtotal:subtotal(),tax:taxAmt(),total:grandTotal(),currency:'EUR',status:method==='whatsapp'?'pending':'paid',date:new Date().toISOString()});localStorage.setItem('am_orders',JSON.stringify(orders))}catch(e){}}
+function showSuccess(method,ref,email){
+  $('co-form-wrap').style.display='none';$('co-success').style.display='block';
+  $('co-success').scrollIntoView({behavior:'smooth',block:'start'});
+  $('suc-title').textContent=t('checkout.title')+' ✦';
+  const lbl={stripe:'✅ Stripe — '+t('checkout.pay_confirmed','Paiement confirmé'),paypal:'✅ PayPal — '+t('checkout.pay_confirmed','Paiement confirmé'),whatsapp:'💬 WhatsApp — Commande envoyée'};
+  $('suc-method').textContent=lbl[method]||method;
+  $('suc-ref').textContent=ref;$('suc-email').textContent=email||'';
+  cart=[];saveCart();updateBadge();
+  setTimeout(()=>{showPage('home');$('co-form-wrap').style.display='block';$('co-success').style.display='none';ppRendered=false;ppLocale='';},8000);
+}
+
+// STRIPE
+async function startStripeCheckout(){
+  if(!validate())return;
+  if(!cart.length){showAlert('a-error',t('cart.empty','Panier vide'),'err');return}
+  const c=getCustomer();
+  // Hard guard — block if email empty even after validate
+  if(!c.email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(c.email)){
+    showAlert('a-error','⚠️ Email requis pour continuer','err');
+    document.getElementById('f-email')?.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  const btn=$('stripe-pay-btn');
+  btn.disabled=true;btn.innerHTML='⏳ Stripe...';
+  showAlert('a-loading','⏳ '+t('checkout.loading','Chargement...'),'info');
+  hideAlert('a-error');
+  try{
+    const res=await fetch('https://jadcbmjgyawoccodfdli.supabase.co/functions/v1/create-checkout',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImphZGNibWpneWF3b2Njb2RmZGxpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMjAwMDAsImV4cCI6MjA5Mjc5NjAwMH0.3tcpFlcAl3x6zP010xu4oxClo82MSHJaN4bjaKOK3Y4'
+      },
+      body:JSON.stringify({
+        items:cart.map(i=>({name:i.name,price:Math.round(i.price*100),quantity:i.qty})),
+        customer:{
+          name:(c.firstName+' '+c.lastName).trim(),
+          email:c.email,
+          phone:c.phone,
+          address:`${c.address}, ${c.city} ${c.zip}, ${c.country}`.trim()
+        },
+        metadata:{ref:'AM-'+Date.now(),lang}
+      })
+    });
+    if(!res.ok){
+      const err=await res.json().catch(()=>({error:'Erreur serveur '+res.status}));
+      throw new Error(err.error||'Erreur Stripe ('+res.status+')');
+    }
+    const data=await res.json();
+    // Use url only — do NOT depend on sessionId for redirect
+    const {url}=data;
+    if(!url) throw new Error('URL Stripe manquante — vérifiez les logs Edge Function');
+    try{localStorage.setItem('am_last_customer',JSON.stringify(c))}catch(e){}
+    saveOrderDB('STR-'+Date.now(),'stripe',c);
+    window.location.href=url;
+  }catch(err){
+    hideAlert('a-loading');
+    showAlert('a-error','⚠️ '+(err.message||'Erreur. Réessayez.'),'err');
+    btn.disabled=false;
+    btn.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> ${t('checkout.pay_stripe','Payer par carte')} — €<span id="stripe-total">${grandTotal().toFixed(2)}</span>`;
+  }
+}
+
+// PAYPAL
+const PP_LOCALES={ar:'fr_FR',en:'en_US',fr:'fr_FR',de:'de_DE',es:'es_ES',it:'it_IT'};
+const PP_DISABLE='card,credit,paylater,venmo,bancontact,blik,eps,giropay,ideal,mercadopago,mybank,p24,sepa,sofort';
+function loadPayPalSDK(locale,callback){
+  if(ppLocale===locale&&typeof paypal!=='undefined'){callback();return}
+  const old=$('paypal-sdk');if(old)old.remove();
+  try{delete window.paypal}catch(e){}
+  ppRendered=false;ppLocale=locale;
+  const clientId=(PAYPAL_LIVE_CLIENT_ID&&PAYPAL_LIVE_CLIENT_ID!=='VOTRE_LIVE_CLIENT_ID')?PAYPAL_LIVE_CLIENT_ID:null;
+  if(!clientId){if($('pp-placeholder'))$('pp-placeholder').style.display='block';hideAlert('a-loading');return}
+  const s=document.createElement('script');
+  s.id='paypal-sdk';
+  s.src=`https://www.paypal.com/sdk/js?client-id=${clientId}&currency=EUR&intent=capture&locale=${locale}&components=buttons&disable-funding=${PP_DISABLE}&enable-funding=paypal&commit=true&vault=false`;
+  s.onload=callback;
+  s.onerror=()=>{if($('pp-placeholder'))$('pp-placeholder').style.display='block';hideAlert('a-loading')};
+  document.head.appendChild(s);
+}
+function initPayPal(){
+  const locale=PP_LOCALES[lang]||'fr_FR';
+  showAlert('a-loading',t('checkout.loading','Chargement de PayPal...'),'info');
+  hideAlert('a-error');
+  loadPayPalSDK(locale,()=>{
+    if(typeof paypal==='undefined'){if($('pp-placeholder'))$('pp-placeholder').style.display='block';hideAlert('a-loading');return}
+    if($('pp-placeholder'))$('pp-placeholder').style.display='none';
+    $('paypal-btn-container').innerHTML='';$('paypal-btn-container').style.display='block';
+    hideAlert('a-loading');ppRendered=true;
+    const buttons=paypal.Buttons({
+      style:{layout:'vertical',color:'gold',shape:'rect',label:'pay',height:50,tagline:false},
+      fundingSource:paypal.FUNDING.PAYPAL,
+      createOrder:async(data,actions)=>{
+        if(!validate())throw new Error('Formulaire incomplet');
+        if(!cart.length){showAlert('a-error',t('cart.empty','Panier vide'),'err');throw new Error('Panier vide')}
+        return actions.order.create({intent:'CAPTURE',purchase_units:[{reference_id:'AM-'+Date.now(),description:'Artisan Marocain',amount:{currency_code:'EUR',value:grandTotal().toFixed(2),breakdown:{item_total:{currency_code:'EUR',value:subtotal().toFixed(2)},tax_total:{currency_code:'EUR',value:taxAmt().toFixed(2)},shipping:{currency_code:'EUR',value:'0.00'}}},items:cart.map(i=>({name:i.name.slice(0,127),unit_amount:{currency_code:'EUR',value:i.price.toFixed(2)},quantity:String(i.qty),category:'PHYSICAL_GOODS'}))}],application_context:{brand_name:'Artisan Marocain',locale:locale.replace('_','-'),landing_page:'LOGIN',shipping_preference:'NO_SHIPPING',user_action:'PAY_NOW',payment_method:{payee_preferred:'IMMEDIATE_PAYMENT_REQUIRED'}}});
+      },
+      onApprove:async(data,actions)=>{
+        showAlert('a-loading','⏳ Confirmation...','info');
+        try{const details=await actions.order.capture();if(details.status==='COMPLETED'){const c=getCustomer();saveOrderDB(details.id,'paypal',c);showSuccess('paypal',details.id,c.email)}else showAlert('a-error','Non complété : '+details.status,'err')}
+        catch(err){showAlert('a-error','Erreur : '+(err.message||'Inconnue'),'err')}
+        finally{hideAlert('a-loading')}
+      },
+      onError:(err)=>{console.error('PayPal:',err);showAlert('a-error','Erreur PayPal. Réessayez.','err');hideAlert('a-loading')},
+      onCancel:()=>{showAlert('a-error','Paiement annulé.','info');hideAlert('a-loading')},
+    });
+    if(buttons.isEligible())buttons.render('#paypal-btn-container');
+    else{if($('pp-placeholder'))$('pp-placeholder').style.display='block';$('paypal-btn-container').style.display='none'}
+  });
+}
+
+// WHATSAPP
+function sendWhatsApp(){
+  if(!validate())return;if(!cart.length){flash('⚠️ '+t('cart.empty'));return}
+  const c=getCustomer();
+  const lines=cart.map(i=>`• ${i.name} ×${i.qty} = €${(i.price*i.qty).toFixed(2)}`).join('\n');
+  const msg=`✦ Artisan Marocain\n\n${lines}\n\nTotal: €${grandTotal().toFixed(2)}\n\n👤 ${c.firstName} ${c.lastName}\n📧 ${c.email}\n📞 ${c.phone}\n📍 ${c.address}, ${c.city} ${c.zip}, ${c.country}`;
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,'_blank');
+  saveOrderDB('WA-'+Date.now(),'whatsapp',c);showSuccess('whatsapp','WA-'+Date.now().toString().slice(-8),c.email);
+}
+
+// CONTACT
+function submitContact(e){
+  e.preventDefault();
+  const name=$('ct-name').value.trim(),email=$('ct-email').value.trim(),msg=$('ct-msg').value.trim();
+  $('err-ct-name').textContent=name.length<2?'✗ '+t('contact.name'):'';
+  $('err-ct-email').textContent=!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)?'✗ '+t('contact.email_label'):'';
+  $('err-ct-msg').textContent=msg.length<10?'✗ '+t('contact.message'):'';
+  if($('err-ct-name').textContent||$('err-ct-email').textContent||$('err-ct-msg').textContent)return;
+  $('ct-ok').style.display='block';$('ct-name').value=$('ct-email').value=$('ct-msg').value='';
+  setTimeout(()=>$('ct-ok').style.display='none',4000);
+}
+
+// NAVIGATION
+const PAGES=['home','products','checkout','contact'];
+function showPage(p){
+  PAGES.forEach(id=>{const el=$(id+'-page');if(el)el.classList.toggle('active',id===p)});
+  ['home','products','contact'].forEach(id=>$('nl-'+id)?.classList.toggle('act',id===p));
+  window.scrollTo({top:0,behavior:'instant'});
+  if(p==='products')renderProducts();
+  if(p==='home')renderHome();
+  if(p==='checkout'){renderSummary();const needed=PP_LOCALES[lang]||'fr_FR';if(!ppRendered||ppLocale!==needed){ppRendered=false;initPayPal()}}
+  closeMob();
+}
+
+// LANGUAGE
+const LANG_FLAGS={ar:'🇲🇦',en:'🇬🇧',fr:'🇫🇷',de:'🇩🇪',es:'🇪🇸',it:'🇮🇹'};
+const LANG_NAMES={ar:'AR',en:'EN',fr:'FR',de:'DE',es:'ES',it:'IT'};
+function setLang(l){
+  lang=l;try{localStorage.setItem('am_lang',l)}catch(e){}
+  const dir=TR[l]?.dir||'ltr';
+  document.documentElement.setAttribute('dir',dir);document.documentElement.setAttribute('lang',l);
+  const lb=$('lang-btn');if(lb)lb.textContent=LANG_FLAGS[l]+' '+LANG_NAMES[l]+' ▾';
+  document.querySelectorAll('.lang-opt').forEach(b=>b.classList.toggle('act',b.textContent.includes(LANG_FLAGS[l])));
+  document.querySelectorAll('.mob-langs button').forEach(b=>b.classList.toggle('act',b.textContent.includes(LANG_NAMES[l])));
+  applyTranslations();renderHome();renderProducts();renderCartItems();renderSummary();
+  const coPage=$('checkout-page');
+  if(coPage&&coPage.classList.contains('active')){const needed=PP_LOCALES[l]||'fr_FR';if(ppLocale!==needed){ppRendered=false;const pc=$('paypal-btn-container');if(pc)pc.innerHTML='';initPayPal()}}
+  $('lang-w').classList.remove('open');
+}
+function applyTranslations(){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.dataset.i18n);if(v&&v!==el.dataset.i18n)el.textContent=v})}
+function toggleLang(){$('lang-w')?.classList.toggle('open')}
+document.addEventListener('click',e=>{if($('lang-w')&&!$('lang-w').contains(e.target))$('lang-w').classList.remove('open')});
+function toggleMob(){$('hbg')?.classList.toggle('open');$('mob-menu')?.classList.toggle('open')}
+function closeMob(){$('hbg')?.classList.remove('open');$('mob-menu')?.classList.remove('open')}
+
+// STRIPE RETURN
+function handleStripeReturn(){
+  const params=new URLSearchParams(window.location.search);
+  const status=params.get('stripe'),sessionId=params.get('session_id');
+  if(status==='success'&&sessionId){
+    showPage('checkout');
+    let c={};try{c=JSON.parse(localStorage.getItem('am_last_customer')||'{}')}catch(e){}
+    $('co-form-wrap').style.display='none';$('co-success').style.display='block';
+    $('suc-title').textContent='Commande confirmée ✦';
+    $('suc-method').textContent='✅ Paiement Stripe confirmé — Merci !';
+    $('suc-ref').textContent=sessionId.slice(-12).toUpperCase();$('suc-email').textContent=c.email||'';
+    cart=[];saveCart();updateBadge();
+    window.history.replaceState({},'',location.pathname);
+    setTimeout(()=>{showPage('home');$('co-form-wrap').style.display='block';$('co-success').style.display='none';},9000);
+  }else if(status==='cancel'){
+    showPage('checkout');showAlert('a-error','Paiement annulé. Réessayez.','info');
+    window.history.replaceState({},'',location.pathname);
+  }
+}
+
+// INIT
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.yr').forEach(el=>el.textContent=new Date().getFullYear());
+  setLang(lang);renderHome();renderProducts();updateBadge();handleStripeReturn();
+  // Load products from Supabase (async — re-renders when data arrives)
+  initProducts();
+});
+</script>
+</body>
+</html>
